@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UI Framework Demo</title>
+
+    <!-- Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="assets/css/framework.css">
+</head>
+
+<body>
+
+    <!-- Contenedor principal -->
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="material-icons logo-icon">dashboard</span>
+                <span class="logo-text">Fer</span>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li onclick="location.href='index.html'">
+                        <span class="material-icons">home</span><span class="link-text">Inicio</span>
+                    </li>
+                    <li><span class="material-icons">dashboard</span><span class="link-text">Dashboard</span></li>
+                    <li><span class="material-icons">folder</span><span class="link-text">Proyectos</span></li>
+                    <li><span class="material-icons">calendar_today</span><span class="link-text">Calendario</span></li>
+                    <li><span class="material-icons">email</span><span class="link-text">Correo</span></li>
+                    <li><span class="material-icons">bar_chart</span><span class="link-text">Reportes</span></li>
+                    <li onclick="location.href='documentation.html'">
+                        <span class="material-icons">description</span><span class="link-text">Documentación</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-icon" onclick="toggleSidebar()">
+                    <span class="material-icons" id="collapseIcon">chevron_left</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <div class="main">
+
+            <!-- header -->
+            <header class="navbar">
+                <button class="btn-icon" onclick="toggleSidebar()">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="navbar-title">Mi Dashboard</div>
+            </header>
+
+            <!-- cuerpo de la página  -->
+            <section class="content">
+
+                <!-- Bienvenida -->
+                <div class="card">
+                    <h2>Hola 👋</h2>
+                    <p>Este es un dashboard de ejemplo con un sidebar moderno y responsive.</p>
+                </div>
+
+                <!-- Formulario -->
+                <div class="card">
+                    <h2>Formularios</h2>
+                    <form class="form-modern">
+                        <div class="input-group">
+                            <label for="nombre">Nombre</label>
+                            <div class="input-icon">
+                                <span class="material-icons">person</span>
+                                <input type="text" id="nombre" placeholder="Ingresá tu nombre">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="email">Correo</label>
+                            <div class="input-icon">
+                                <span class="material-icons">mail</span>
+                                <input type="email" id="email" placeholder="ejemplo@correo.com">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="edad">Edad</label>
+                            <div class="input-icon">
+                                <span class="material-icons">calendar_today</span>
+                                <input type="number" id="edad" placeholder="Ej: 30">
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="pais">País</label>
+                            <div class="input-icon">
+                                <span class="material-icons">language</span>
+                                <select id="pais">
+                                    <option>Argentina</option>
+                                    <option>Chile</option>
+                                    <option>Uruguay</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="comentario">Comentario</label>
+                            <div class="input-icon">
+                                <span class="material-icons">comment</span>
+                                <textarea id="comentario" rows="3" placeholder="Escribí algo..."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Campo de Fecha -->
+                        <div class="input-group">
+                            <label for="fecha">Fecha de nacimiento</label>
+                            <div class="input-icon">
+                                <span class="material-icons">event</span>
+                                <input type="date" id="fecha" placeholder="Seleccioná una fecha">
+                            </div>
+                        </div>
+
+                        <!-- Grupo de Checkboxes -->
+                        <div class="input-group">
+                            <label class="checkbox-label">Seleccioná tus toppings:</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="toppings" value="pepperoni">
+                                    <span>Pepperoni</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="toppings" value="cheese">
+                                    <span>Extra Cheese</span>
+                                </label>
+                                <label class="checkbox-option">
+                                    <input type="checkbox" name="toppings" value="mushroom">
+                                    <span>Mushroom</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button class="btn btn-aceptar" type="submit">Enviar</button>
+                            <button class="btn btn-cancelar" type="button">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+
+                <!-- Tabla -->
+                <div class="card">
+                    <h2>Tablas</h2>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Carlos Ruiz</td>
+                                    <td>carlos@mail.com</td>
+                                    <td>Administrador</td>
+                                    <td><span class="badge success">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Laura Méndez</td>
+                                    <td>laura@mail.com</td>
+                                    <td>Editor</td>
+                                    <td><span class="badge warning">Pendiente</span></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Jorge Peña</td>
+                                    <td>jorge@mail.com</td>
+                                    <td>Usuario</td>
+                                    <td><span class="badge danger">Suspendido</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de prueba de Alerts -->
+                <div class="card">
+                    <h2>Botones</h2>
+                    <button class="btn btn-aceptar" onclick="showAlert('success', '¡Operación completada con éxito!')">
+                        Mostrar Success
+                    </button>
+                    <button class="btn btn-cancelar" onclick="showAlert('error', 'Ha ocurrido un error inesperado.')">
+                        Mostrar Error
+                    </button>
+                    <button class="btn btn-info" onclick="showAlert('info', 'Este es un mensaje informativo.')">
+                        Mostrar Info
+                    </button>
+                </div>
+
+                <!-- tarjeta de prueba modal -->
+                <div class="card">
+                    <h2>Modales</h2>
+                    <p>Hacé clic en el botón para abrir un modal:</p>
+                    <div class="form-buttons">
+                        <button class="btn btn-info" onclick="openModal()">Abrir modal</button>
+                    </div>
+                </div>
+
+                <!-- Alert -->
+                <div class="alert-container" id="alertContainer"></div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Título del modal</h3>
+            <p>Este es un ejemplo de modal simple y responsive.</p>
+            <div class="form-buttons">
+                <button class="btn btn-aceptar" onclick="closeModal()">Aceptar</button>
+                <button class="btn btn-cancelar" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Framework JS -->
+    <script src="assets/javascript/framework.js"></script>
+    <!-- Contenedor de alerts flotantes -->
+</body>
+
+</html>

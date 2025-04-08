@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UI Framework Demo</title>
+
+    <!-- Material Icons CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- Framework CSS -->
+    <link rel="stylesheet" href="assets/css/framework.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f9f9f9;
+            margin: 0;
+            padding: 2rem;
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #5b21b6;
+        }
+
+        code {
+            background: #eee;
+            padding: 0.2rem 0.4rem;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+
+        pre {
+            background: #eee;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: #ddd;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        /* Modal para demo */
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #5b21b6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.hidden {
+            display: none;
+        }
+
+        .modal-content {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 1rem;
+        }
+
+        .modal-content button {
+            background: #f44336;
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            margin-top: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Contenedor principal -->
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="material-icons logo-icon">dashboard</span>
+                <span class="logo-text">Fer</span>
+            </div>
+
+            <nav class="sidebar-menu">
+                <ul>
+                    <li onclick="location.href='index.html'">
+                        <span class="material-icons">home</span><span class="link-text">Inicio</span>
+                    </li>
+                    <li><span class="material-icons">dashboard</span><span class="link-text">Dashboard</span></li>
+                    <li><span class="material-icons">folder</span><span class="link-text">Proyectos</span></li>
+                    <li><span class="material-icons">calendar_today</span><span class="link-text">Calendario</span></li>
+                    <li><span class="material-icons">email</span><span class="link-text">Correo</span></li>
+                    <li><span class="material-icons">bar_chart</span><span class="link-text">Reportes</span></li>
+                    <li onclick="location.href='documentation.html'">
+                        <span class="material-icons">description</span><span class="link-text">Documentación</span>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="btn-icon" onclick="toggleSidebar()">
+                    <span class="material-icons" id="collapseIcon">chevron_left</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <div class="main">
+
+            <!-- header -->
+            <header class="navbar">
+                <button class="btn-icon" onclick="toggleSidebar()">
+                    <span class="material-icons">menu</span>
+                </button>
+                <div class="navbar-title">Mi Dashboard</div>
+            </header>
+
+            <!-- cuerpo de la página  -->
+            <section class="content">
+
+                <div class="card">
+
+                    <h1>📘 UI Framework - Tagus</h1>
+                    <p>Framework ligero y moderno para prototipado rápido, dashboards y sistemas de administración.</p>
+
+                    <section>
+                        <h2>📁 Estructura de Archivos</h2>
+                        <pre><code>/assets
+                  ├── css/
+                  │   └── framework.css
+                  ├── javascript/
+                  │   └── framework.js
+                  index.html</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>🚀 Cómo usar</h2>
+                        <pre><code>&lt;link rel="stylesheet" href="assets/css/framework.css"&gt;
+                  &lt;script src="assets/javascript/framework.js" defer&gt;&lt;/script&gt;</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>🎨 Clases disponibles</h2>
+                        <ul>
+                            <li><code>.layout</code> → Contenedor general</li>
+                            <li><code>.sidebar</code> / <code>.sidebar.collapsed</code> → Menú lateral</li>
+                            <li><code>.navbar</code> → Encabezado superior</li>
+                            <li><code>.card</code> → Tarjetas visuales</li>
+                            <li><code>.btn</code>, <code>.btn-aceptar</code>, <code>.btn-cancelar</code>,
+                                <code>.btn-info</code> →
+                                Botones semánticos</li>
+                            <li><code>.form-modern</code> → Formularios modernos</li>
+                            <li><code>.input-icon</code> → Inputs con iconos</li>
+                            <li><code>.data-table</code> → Tablas responsivas</li>
+                            <li><code>.floating-alert</code> → Alertas flotantes</li>
+                            <li><code>.modal</code>, <code>.modal-content</code> → Modales centrados</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>📢 Alertas flotantes</h2>
+                        <p>Función JS:</p>
+                        <pre><code>showAlert('success', 'Todo ok');
+                  showAlert('error', 'Hubo un error');
+                  showAlert('info', 'Esto es informativo');</code></pre>
+                        <p>⏱️ Se cierran automáticamente después de 5 segundos.</p>
+                    </section>
+
+                    <section>
+                        <h2>💬 Modales</h2>
+                        <p>HTML básico:</p>
+                        <pre><code>&lt;div class="modal hidden" id="modalDemo"&gt;
+                    &lt;div class="modal-content"&gt;
+                      &lt;h3&gt;Título del Modal&lt;/h3&gt;
+                      &lt;p&gt;Contenido del modal aquí.&lt;/p&gt;
+                      &lt;button onclick="closeModal()"&gt;Cerrar&lt;/button&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;</code></pre>
+                        <p>Funciones JS necesarias:</p>
+                        <pre><code>function openModal() {
+                    document.getElementById('modalDemo').classList.remove('hidden');
+                  }
+                  function closeModal() {
+                    document.getElementById('modalDemo').classList.add('hidden');
+                  }</code></pre>
+
+                        <button class="btn" onclick="openModal()">📦 Ver modal</button>
+
+                        <!-- Modal real -->
+                        <div class="modal hidden" id="modalDemo">
+                            <div class="modal-content">
+                                <h3>Modal de ejemplo</h3>
+                                <p>Este es un modal incluido en el framework Tagus.</p>
+                                <button onclick="closeModal()">Cerrar</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section>
+                        <h2>🧪 Ejemplo de Formulario</h2>
+                        <pre><code>&lt;div class="input-group"&gt;
+                    &lt;label&gt;Correo&lt;/label&gt;
+                    &lt;div class="input-icon"&gt;
+                      &lt;span class="material-icons"&gt;mail&lt;/span&gt;
+                      &lt;input type="email" placeholder="ejemplo@correo.com" /&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>🧩 Variables personalizables</h2>
+                        <pre><code>:root {
+                    --primary-color: #5b21b6;
+                    --sidebar-bg: #fff;
+                    --border-radius: 12px;
+                    ...
+                  }</code></pre>
+                    </section>
+
+                    <section>
+                        <h2>📱 Responsive</h2>
+                        <ul>
+                            <li>Sidebar se colapsa en dispositivos pequeños</li>
+                            <li>Formularios se apilan verticalmente</li>
+                            <li>Tablas con scroll horizontal</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>📦 Funciones JS disponibles</h2>
+                        <ul>
+                            <li><code>toggleSidebar()</code> → Alterna el menú lateral</li>
+                            <li><code>showAlert(tipo, mensaje)</code> → Lanza alertas flotantes</li>
+                            <li><code>openModal()</code> / <code>closeModal()</code> → Abre y cierra modales</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>🔧 Requisitos</h2>
+                        <ul>
+                            <li>Material Icons CDN</li>
+                            <li>Navegador moderno</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>📍Créditos</h2>
+                        <p>Hecho con 💜 por vos. Diseño inspirado en Tagus.</p>
+                    </section>
+
+                </div>
+
+                <!-- Alert -->
+                <div class="alert-container" id="alertContainer"></div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <h3>Título del modal</h3>
+            <p>Este es un ejemplo de modal simple y responsive.</p>
+            <div class="form-buttons">
+                <button class="btn btn-aceptar" onclick="closeModal()">Aceptar</button>
+                <button class="btn btn-cancelar" onclick="closeModal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Framework JS -->
+    <script src="assets/javascript/framework.js"></script>
+
+</body>
+
+</html>
