@@ -368,6 +368,86 @@
                     &lt;/div&gt;</code></pre>
                     </section>
 
+                    <section>
+                        <h2>📄 Plantilla base de inicio</h2>
+                        <p>Copiá y pegá este HTML para comenzar un nuevo proyecto con la estructura básica de Success.
+                        </p>
+
+                        <pre><code>&lt;!DOCTYPE html&gt;
+                      &lt;html lang="es"&gt;
+                      
+                      &lt;head&gt;
+                        &lt;meta charset="UTF-8" /&gt;
+                        &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+                        &lt;title&gt;Mi Proyecto con Tagus&lt;/title&gt;
+                      
+                        &lt;!-- Íconos de Material Design --&gt;
+                        &lt;link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /&gt;
+                      
+                        &lt;!-- Framework Tagus desde CDN --&gt;
+                        &lt;link rel="stylesheet" href="https://www.fernandosalguero.com/cdn/assets/css/framework.css"&gt;
+                        &lt;script src="https://www.fernandosalguero.com/cdn/assets/javascript/framework.js" defer&gt;&lt;/script&gt;
+                      &lt;/head&gt;
+                      
+                      &lt;body&gt;
+                      
+                        &lt;!-- 🔲 CONTENEDOR PRINCIPAL --&gt;
+                        &lt;div class="layout"&gt;
+                      
+                          &lt;!-- 🧭 SIDEBAR --&gt;
+                          &lt;aside class="sidebar" id="sidebar"&gt;
+                            &lt;div class="sidebar-header"&gt;
+                              &lt;span class="material-icons logo-icon"&gt;dashboard&lt;/span&gt;
+                              &lt;span class="logo-text"&gt;Tagus&lt;/span&gt;
+                            &lt;/div&gt;
+                      
+                            &lt;nav class="sidebar-menu"&gt;
+                              &lt;ul&gt;
+                                &lt;li onclick="location.href='index.html'"&gt;
+                                  &lt;span class="material-icons"&gt;home&lt;/span&gt;&lt;span class="link-text"&gt;Inicio&lt;/span&gt;
+                                &lt;/li&gt;
+                                &lt;li onclick="location.href='documentacion.html'"&gt;
+                                  &lt;span class="material-icons"&gt;description&lt;/span&gt;&lt;span class="link-text"&gt;Documentación&lt;/span&gt;
+                                &lt;/li&gt;
+                              &lt;/ul&gt;
+                            &lt;/nav&gt;
+                      
+                            &lt;div class="sidebar-footer"&gt;
+                              &lt;button class="btn-icon" onclick="toggleSidebar()"&gt;
+                                &lt;span class="material-icons" id="collapseIcon"&gt;chevron_left&lt;/span&gt;
+                              &lt;/button&gt;
+                            &lt;/div&gt;
+                          &lt;/aside&gt;
+                      
+                          &lt;!-- 🧱 MAIN --&gt;
+                          &lt;div class="main"&gt;
+                      
+                            &lt;!-- 🟪 NAVBAR --&gt;
+                            &lt;header class="navbar"&gt;
+                              &lt;button class="btn-icon" onclick="toggleSidebar()"&gt;
+                                &lt;span class="material-icons"&gt;menu&lt;/span&gt;
+                              &lt;/button&gt;
+                              &lt;div class="navbar-title"&gt;Mi Proyecto&lt;/div&gt;
+                            &lt;/header&gt;
+                      
+                            &lt;!-- 📦 CONTENIDO --&gt;
+                            &lt;section class="content"&gt;
+                      
+                              &lt;div class="card"&gt;
+                                &lt;h2&gt;¡Hola! 👋&lt;/h2&gt;
+                                &lt;p&gt;Esta es una tarjeta de bienvenida para empezar tu diseño.&lt;/p&gt;
+                              &lt;/div&gt;
+                      
+                            &lt;/section&gt;
+                      
+                          &lt;/div&gt;
+                        &lt;/div&gt;
+                      
+                      &lt;/body&gt;
+                      &lt;/html&gt;</code></pre>
+                    </section>
+
+
 
                     <section>
                         <h2>📍Créditos</h2>
