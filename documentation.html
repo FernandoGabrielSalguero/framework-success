@@ -305,7 +305,7 @@
 
                     <section>
                         <h2>📦 Componentes listos para usar</h2>
-                        <p>Copiá y pegá estos bloques para empezar a construir con Tagus en segundos:</p>
+                        <p>Copiá y pegá estos bloques para empezar a construir con Success en segundos:</p>
 
                         <h3>🧊 Tarjeta</h3>
                         <pre><code>&lt;div class="card"&gt;
@@ -379,12 +379,12 @@
                       &lt;head&gt;
                         &lt;meta charset="UTF-8" /&gt;
                         &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
-                        &lt;title&gt;Mi Proyecto con Tagus&lt;/title&gt;
+                        &lt;title&gt;Mi Proyecto con Success&lt;/title&gt;
                       
                         &lt;!-- Íconos de Material Design --&gt;
                         &lt;link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /&gt;
                       
-                        &lt;!-- Framework Tagus desde CDN --&gt;
+                        &lt;!-- Framework Success desde CDN --&gt;
                         &lt;link rel="stylesheet" href="https://www.fernandosalguero.com/cdn/assets/css/framework.css"&gt;
                         &lt;script src="https://www.fernandosalguero.com/cdn/assets/javascript/framework.js" defer&gt;&lt;/script&gt;
                       &lt;/head&gt;
@@ -398,7 +398,7 @@
                           &lt;aside class="sidebar" id="sidebar"&gt;
                             &lt;div class="sidebar-header"&gt;
                               &lt;span class="material-icons logo-icon"&gt;dashboard&lt;/span&gt;
-                              &lt;span class="logo-text"&gt;Tagus&lt;/span&gt;
+                              &lt;span class="logo-text"&gt;Success&lt;/span&gt;
                             &lt;/div&gt;
                       
                             &lt;nav class="sidebar-menu"&gt;
@@ -446,6 +446,52 @@
                       &lt;/body&gt;
                       &lt;/html&gt;</code></pre>
                     </section>
+
+                    <section>
+                        <h2>🎨 Personalización de colores</h2>
+                        <p>Podés modificar los colores y estilos del framework redefiniendo las variables CSS globales.
+                        </p>
+
+                        <h3>🌈 ¿Dónde están las variables?</h3>
+                        <p>Están definidas en el archivo base del framework:</p>
+                        <pre><code>:root {
+                        --primary-color: #5b21b6;
+                        --sidebar-bg: #fff;
+                        --text-color: #333;
+                        --icon-color: #5b21b6;
+                        --border-radius: 12px;
+                      }</code></pre>
+
+                        <h3>✏️ ¿Cómo modificarlas en tu proyecto?</h3>
+
+                        <h4>✅ Opción 1: Desde el mismo HTML</h4>
+                        <p>Agregá un bloque <code>&lt;style&gt;</code> después del CSS del framework:</p>
+                        <pre><code>&lt;link rel="stylesheet" href="https://www.fernandosalguero.com/cdn/assets/css/framework.css"&gt;
+                      
+                      &lt;style&gt;
+                        :root {
+                          --primary-color: #009688;
+                          --sidebar-bg: #f0f0f0;
+                          --icon-color: #00695c;
+                        }
+                      &lt;/style&gt;</code></pre>
+
+                        <h4>✅ Opción 2: Usando un archivo <code>theme.css</code></h4>
+                        <p>Creá un archivo nuevo y vinculalo después del CSS principal:</p>
+                        <pre><code>&lt;link rel="stylesheet" href="assets/css/theme.css"&gt;</code></pre>
+
+                        <p>Contenido de <code>theme.css</code>:</p>
+                        <pre><code>:root {
+                        --primary-color: #ff5722;
+                        --sidebar-bg: #ffffff;
+                        --text-color: #222;
+                        --icon-color: #e64a19;
+                      }</code></pre>
+
+                        <p>🔄 Todos los botones, íconos, menú y alertas se actualizarán automáticamente con los nuevos
+                            estilos.</p>
+                    </section>
+
 
 
 
