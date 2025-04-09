@@ -72,134 +72,129 @@
                 <div class="card">
                     <h2>Formularios</h2>
                     <form class="form-modern">
-                        <div class="input-group">
-                            <label for="nombre">Nombre</label>
-                            <div class="input-icon">
-                                <span class="material-icons">person</span>
-                                <input type="text" id="nombre" placeholder="Ingresá tu nombre">
+                        <div class="form-grid grid-4">
+
+                            <!-- Nombre completo -->
+                            <div class="input-group">
+                                <label for="nombre">Nombre completo
+                                    <span class="tooltip" data-tooltip="Ingresá tu nombre y apellido completo.">
+                                        <span class="material-icons">info</span>
+                                    </span>
+                                </label>
+                                <div class="input-icon">
+                                    <span class="material-icons">person</span>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required
+                                        minlength="2" maxlength="60" aria-required="true">
+                                </div>
+                                <small class="error-message" aria-live="polite"></small>
+                            </div>
+
+                            <!-- Correo electrónico -->
+                            <div class="input-group">
+                                <label for="email">Correo electrónico
+                                    <span class="tooltip" data-tooltip="Ej: usuario@correo.com">
+                                        <span class="material-icons">info</span>
+                                    </span>
+                                </label>
+                                <div class="input-icon">
+                                    <span class="material-icons">mail</span>
+                                    <input type="email" id="email" name="email" placeholder="usuario@correo.com"
+                                        required aria-required="true">
+                                </div>
+                                <small class="error-message" aria-live="polite"></small>
                             </div>
                         </div>
 
-                        <div class="input-group">
-                            <label for="email">Correo</label>
-                            <div class="input-icon">
-                                <span class="material-icons">mail</span>
-                                <input type="email" id="email" placeholder="ejemplo@correo.com">
+                        <div class="form-grid grid-4">
+                            <!-- Fecha de nacimiento -->
+                            <div class="input-group">
+                                <label for="fecha">Fecha de nacimiento
+                                    <span class="tooltip" data-tooltip="Seleccioná tu fecha de nacimiento.">
+                                        <span class="material-icons">info</span>
+                                    </span>
+                                </label>
+                                <div class="input-icon">
+                                    <span class="material-icons">event</span>
+                                    <input type="date" id="fecha" name="fecha" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="input-group">
-                            <label for="edad">Edad</label>
-                            <div class="input-icon">
-                                <span class="material-icons">calendar_today</span>
-                                <input type="number" id="edad" placeholder="Ej: 30">
+                            <!-- Teléfono -->
+                            <div class="input-group">
+                                <label for="telefono">Teléfono
+                                    <span class="tooltip" data-tooltip="Incluí el código de área. Ej: +54 11 5555-1234">
+                                        <span class="material-icons">info</span>
+                                    </span>
+                                </label>
+                                <div class="input-icon">
+                                    <span class="material-icons">phone</span>
+                                    <input type="tel" id="telefono" name="telefono" pattern="[0-9\+\-\s]{7,20}"
+                                        required>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="input-group">
-                            <label for="pais">País</label>
-                            <div class="input-icon">
-                                <span class="material-icons">language</span>
-                                <select id="pais">
-                                    <option>Argentina</option>
-                                    <option>Chile</option>
-                                    <option>Uruguay</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- Imput Pro -->
-
-                        <!-- Input de Nombre con validación -->
-                        <div class="input-group">
-                            <label for="nombre-validado">Nombre</label>
-                            <div class="input-icon">
-                                <span class="material-icons">person</span>
-                                <input type="text" id="nombre-validado" placeholder="Tu nombre completo"
-                                    oninput="validateNombre()" />
-                            </div>
-                            <span id="error-nombre" class="input-error">El nombre debe tener al menos 3
-                                caracteres</span>
-                        </div>
-
-                        <!-- Input de Edad con validación -->
-                        <div class="input-group">
-                            <label for="edad-validada">Edad verificada</label>
-                            <div class="input-icon">
-                                <span class="material-icons">calendar_today</span>
-                                <input type="number" id="edad-validada" placeholder="Tu edad"
-                                    oninput="validateEdad()" />
-                            </div>
-                            <span id="error-edad" class="input-error">Edad inválida (debe ser entre 18 y 30)</span>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="select-custom">País (Selector con busqueda interna)</label>
-                            <div class="input-icon custom-select-wrapper">
-                                <span class="material-icons">language</span>
-                                <div class="custom-select" onclick="toggleCustomSelect(this)">
-                                    <input type="text" placeholder="Seleccioná o busca un país"
-                                        oninput="filterOptions(this)">
-                                    <ul class="custom-options">
-                                        <li onclick="selectOption(this)">Argentina</li>
-                                        <li onclick="selectOption(this)">Chile</li>
-                                        <li onclick="selectOption(this)">Uruguay</li>
-                                        <li onclick="selectOption(this)">Paraguay</li>
-                                        <li onclick="selectOption(this)">Brasil</li>
-                                    </ul>
+                            <!-- CUIT -->
+                            <div class="input-group">
+                                <label for="cuit">CUIT
+                                    <span class="tooltip" data-tooltip="Ej: 20-12345678-1">
+                                        <span class="material-icons">info</span>
+                                    </span>
+                                </label>
+                                <div class="input-icon">
+                                    <span class="material-icons">badge</span>
+                                    <input type="text" id="cuit" name="cuit" pattern="[0-9]{2}-[0-9]{8}-[0-9]{1}"
+                                        required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="input-group" id="group-email-validado">
-                            <label for="correo-validado">Correo electrónico</label>
-                            <div class="input-icon">
-                                <span class="material-icons">mail</span>
-                                <input type="email" id="correo-validado" placeholder="ejemplo@correo.com" required>
+                        <div class="form-grid grid-4">
+                            <!-- Provincia -->
+                            <div class="input-group">
+                                <label for="provincia">Provincia</label>
+                                <div class="input-icon">
+                                    <span class="material-icons">public</span>
+                                    <select id="provincia" name="provincia" required>
+                                        <option value="">Seleccionar</option>
+                                        <option>Buenos Aires</option>
+                                        <option>Córdoba</option>
+                                        <option>Santa Fe</option>
+                                    </select>
+                                </div>
                             </div>
-                            <span class="input-error-text" style="display: none;">Este campo debe ser un correo
-                                valido</span>
-                        </div>
 
-                        <div class="input-group">
-                            <label for="comentario">Comentario</label>
-                            <div class="input-icon">
-                                <span class="material-icons">comment</span>
-                                <textarea id="comentario" rows="3" placeholder="Escribí algo..."></textarea>
+                            <!-- Localidad -->
+                            <div class="input-group">
+                                <label for="localidad">Localidad</label>
+                                <div class="input-icon">
+                                    <span class="material-icons">location_city</span>
+                                    <input type="text" id="localidad" name="localidad" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Campo de Fecha -->
-                        <div class="input-group">
-                            <label for="fecha">Fecha de nacimiento</label>
-                            <div class="input-icon">
-                                <span class="material-icons">event</span>
-                                <input type="date" id="fecha" placeholder="Seleccioná una fecha">
+                            <!-- Código Postal -->
+                            <div class="input-group">
+                                <label for="cp">Código Postal</label>
+                                <div class="input-icon">
+                                    <span class="material-icons">markunread_mailbox</span>
+                                    <input type="text" id="cp" name="cp" pattern="[0-9]{4,6}" required>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Grupo de Checkboxes -->
-                        <div class="input-group">
-                            <label class="checkbox-label">Seleccioná tus toppings:</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-option">
-                                    <input type="checkbox" name="toppings" value="pepperoni">
-                                    <span>Pepperoni</span>
-                                </label>
-                                <label class="checkbox-option">
-                                    <input type="checkbox" name="toppings" value="cheese">
-                                    <span>Extra Cheese</span>
-                                </label>
-                                <label class="checkbox-option">
-                                    <input type="checkbox" name="toppings" value="mushroom">
-                                    <span>Mushroom</span>
-                                </label>
+                            <!-- Dirección -->
+                            <div class="input-group">
+                                <label for="direccion">Dirección</label>
+                                <div class="input-icon">
+                                    <span class="material-icons">home</span>
+                                    <input type="text" id="direccion" name="direccion" required>
+                                </div>
                             </div>
                         </div>
 
+                        <!-- Botones -->
                         <div class="form-buttons">
                             <button class="btn btn-aceptar" type="submit">Enviar</button>
-                            <button class="btn btn-cancelar" type="button">Cancelar</button>
+                            <button class="btn btn-cancelar" type="reset">Cancelar</button>
                         </div>
                     </form>
                 </div>
