@@ -141,3 +141,16 @@ function toggleAccordion(element) {
     body.style.display = body.style.display === "block" ? "none" : "block";
 }
 
+// objeto selector con buscador interno
+document.querySelectorAll('.smart-selector').forEach(selector => {
+    const input = selector.querySelector('.smart-selector-search');
+    const options = selector.querySelectorAll('.smart-selector-list label');
+  
+    input.addEventListener('input', () => {
+      const search = input.value.toLowerCase();
+      options.forEach(label => {
+        const text = label.textContent.toLowerCase();
+        label.style.display = text.includes(search) ? 'flex' : 'none';
+      });
+    });
+  });
