@@ -753,7 +753,7 @@ body {
     font-weight: 600;
 }
 
-/* Esconde inputs por defecto y mejora apariencia */
+/* Selector con buscador incorporado */
 .smart-selector {
     max-width: 400px;
     padding: 1.5rem;
