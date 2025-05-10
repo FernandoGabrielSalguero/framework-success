@@ -72,7 +72,8 @@
           <li><span class="material-icons">email</span><span class="link-text">Correo</span></li>
           <li><span class="material-icons">bar_chart</span><span class="link-text">Reportes</span></li>
           <li>
-            <a href="https://www.fernandosalguero.com/cdn/documentation.html" target="_blank" style="display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit;">
+            <a href="https://www.fernandosalguero.com/cdn/documentation.html" target="_blank"
+              style="display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit;">
               <span class="material-icons">description</span>
               <span class="link-text">Documentación</span>
             </a>
@@ -104,14 +105,19 @@
             <h2>📦 Instalación</h2>
             <h3>✅ CDN (recomendado)</h3>
             <pre><code>&lt;link rel="stylesheet" href="https://www.fernandosalguero.com/cdn/assets/css/framework.css"&gt;
-&lt;script src="https://www.fernandosalguero.com/cdn/assets/javascript/framework.js" defer&gt;&lt;/script&gt;</code></pre>
+            &lt;script src="https://www.fernandosalguero.com/cdn/assets/javascript/framework.js" defer&gt;&lt;/script&gt;
+            &lt;script src="https://www.fernandosalguero.com/cdn/components/spinner-global.js"&gt;&lt;/script&gt;</code></pre>
+
             <h3>🗂️ Carpeta local</h3>
             <pre><code>/assets
-├── css/
-│   └── framework.css
-├── javascript/
-│   └── framework.js</code></pre>
+            ├── css/
+            │   └── framework.css
+            ├── javascript/
+            │   └── framework.js
+            ├── components/
+            │   └── spinner-global.js</code></pre>
           </section>
+
 
           <section>
             <h2>🎛️ Variables globales</h2>
@@ -163,9 +169,11 @@
                   <details>
                     <summary>🎨 Botones</summary>
                     <p>Clases: <code>.btn</code>, <code>.btn-aceptar</code>, <code>.btn-cancelar</code>,
-                      <code>.btn-info</code></p>
+                      <code>.btn-info</code>
+                    </p>
                     <p>Botones semánticos listos para usar con colores distintos y hover. Se pueden personalizar desde
-                      <code>:root</code>.</p>
+                      <code>:root</code>.
+                    </p>
                     <pre><code>&lt;button class="btn btn-aceptar"&gt;Aceptar&lt;/button&gt;
 &lt;button class="btn btn-cancelar"&gt;Cancelar&lt;/button&gt;
 &lt;button class="btn btn-info"&gt;Más info&lt;/button&gt;</code></pre>
@@ -175,7 +183,8 @@
                     <summary>📦 Tarjetas</summary>
                     <p>Clases: <code>.card</code> / <code>.card-grid grid-2/3/4</code></p>
                     <p>Contenedores visuales para destacar contenido. Agrupá múltiples en columnas usando la clase
-                      <code>.card-grid</code>.</p>
+                      <code>.card-grid</code>.
+                    </p>
                     <pre><code>&lt;div class="card"&gt;
   &lt;h3&gt;Título&lt;/h3&gt;
   &lt;p&gt;Contenido&lt;/p&gt;
@@ -246,7 +255,8 @@
                   <details>
                     <summary>💬 Modal</summary>
                     <p>Modales simples y centrados. Se abren con <code>openModal()</code> y cierran con
-                      <code>closeModal()</code>.</p>
+                      <code>closeModal()</code>.
+                    </p>
                     <pre><code>&lt;div class="modal hidden" id="modalEjemplo"&gt;
   &lt;div class="modal-content"&gt;
     &lt;h3&gt;Título&lt;/h3&gt;
@@ -259,7 +269,8 @@
                   <details>
                     <summary>🌀 Spinner Global</summary>
                     <p>Clases: <code>.spinner-overlay</code> + <code>.spinner</code> | Funciones:
-                      <code>showSpinner()</code>, <code>hideSpinner()</code></p>
+                      <code>showSpinner()</code>, <code>hideSpinner()</code>
+                    </p>
                     <pre><code>&lt;div id="globalSpinner" class="spinner-overlay hidden"&gt;
   &lt;div class="spinner"&gt;&lt;/div&gt;
 &lt;/div&gt;</code></pre>
@@ -319,7 +330,8 @@
 
                 <details>
                   <summary>📄 Plantilla base del proyecto</summary>
-                  <p>Esta plantilla ya incluye el header, sidebar, layout y un formulario funcional. Ideal para comenzar un nuevo proyecto con Success sin configuraciones extras.</p>
+                  <p>Esta plantilla ya incluye el header, sidebar, layout y un formulario funcional. Ideal para comenzar
+                    un nuevo proyecto con Success sin configuraciones extras.</p>
                   <pre><code>&lt;!DOCTYPE html&gt;
                 &lt;html lang="es"&gt;
                 
