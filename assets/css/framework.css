@@ -19,7 +19,7 @@
 
 body {
     font-family: var(--font-family);
-    background: #d1cfd8;
+    background: #f5f5f5;
     color: var(--text-color);
     overflow-x: hidden;
 }
