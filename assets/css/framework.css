@@ -717,7 +717,7 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     margin-bottom: 1rem;
-    background: white;
+    background: #e7e7e7;
 }
 
 .accordion-header {
@@ -726,7 +726,7 @@ body {
     justify-content: space-between;
     cursor: pointer;
     font-weight: bold;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #112c4eff;
 }
 
 .accordion-body {
