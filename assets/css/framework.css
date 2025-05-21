@@ -271,6 +271,25 @@ body {
     gap: 1rem;
 }
 
+.form-grid.grid-2,
+.form-grid.grid-3,
+.form-grid.grid-4 {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-grid.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.form-grid.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .form-group {
     flex: 1 1 250px;
     display: flex;
