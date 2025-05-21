@@ -239,31 +239,48 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                </div>
-
-                <!-- Tarjeta de prueba de Alerts -->
-                <div class="card">
-                    <h2>Botones</h2>
-                    <button class="btn btn-aceptar" onclick="showAlert('success', '¡Operación completada con éxito!')">
-                        Mostrar Success
-                    </button>
-                    <button class="btn btn-cancelar" onclick="showAlert('error', 'Ha ocurrido un error inesperado.')">
-                        Mostrar Error
-                    </button>
-                    <button class="btn btn-info" onclick="showAlert('info', 'Este es un mensaje informativo.')">
-                        Mostrar Info
-                    </button>
-                </div>
-
-                <!-- tarjeta de prueba modal -->
-                <div class="card">
-                    <h2>Modales</h2>
-                    <p>Hacé clic en el botón para abrir un modal:</p>
-                    <div class="form-buttons">
-                        <button class="btn btn-info" onclick="openModal()">Abrir modal</button>
-                    </div>
-                </div>
+                        </div>
+                        </div>
+                        <!-- Tarjeta de prueba de Alerts -->
+                        <div class="card">
+                            <h2>Botones</h2>
+                            <br>                        
+                            <div class="form-grid grid-3">
+                                <button class="btn btn-aceptar" onclick="showAlert('success', '¡Operación completada con éxito!')">
+                                    Mostrar Success
+                                </button>
+                                <button class="btn btn-cancelar" onclick="showAlert('error', 'Ha ocurrido un error inesperado.')">
+                                    Mostrar Error
+                                </button>
+                                <button class="btn btn-info" onclick="showAlert('info', 'Este es un mensaje informativo.')">
+                                    Mostrar Info
+                                </button>
+                            </div>
+                            <br>
+                            <!-- toastify -->
+                            <div class="form-grid grid-3">
+                                <button class="btn btn-aceptar" onclick="showToast('success', 'Formulario enviado correctamente');">
+                                    Mostrar Toast Success
+                                </button>
+                                <button class="btn btn-cancelar" onclick="showToast('error', 'Error al enviar el formulario');">
+                                    Mostrar Toast Error
+                                </button>
+                                <button class="btn btn-info" onclick="showToast('info', 'Tenés campos pendientes');">
+                                    Mostrar Toast Info
+                                </button>
+                            </div>
+                        
+                        
+                        </div>
+                        
+                        <!-- tarjeta de prueba modal -->
+                        <div class="card">
+                            <h2>Modales</h2>
+                            <p>Hacé clic en el botón para abrir un modal:</p>
+                            <div class="form-buttons">
+                                <button class="btn btn-info" onclick="openModal()">Abrir modal</button>
+                            </div>
+                        </div>
 
 
                 <!-- Varias tarjetas apiladas -->
@@ -454,5 +471,6 @@
         }
     </script>
 </body>
+<div id="toast-container"></div>
 
 </html>
