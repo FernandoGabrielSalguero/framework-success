@@ -165,8 +165,8 @@ function showToast(type = 'info', message = 'Mensaje') {
 
     container.appendChild(toast);
 
-    // Eliminar el toast después de 5 segundos
+    // Eliminar el toast después de 15 segundos
     setTimeout(() => {
         toast.remove();
-    }, 5000);
+    }, 15000);
 }
