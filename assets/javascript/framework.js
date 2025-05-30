@@ -145,12 +145,28 @@ function toggleAccordion(element) {
 document.querySelectorAll('.smart-selector').forEach(selector => {
     const input = selector.querySelector('.smart-selector-search');
     const options = selector.querySelectorAll('.smart-selector-list label');
-  
+
     input.addEventListener('input', () => {
-      const search = input.value.toLowerCase();
-      options.forEach(label => {
-        const text = label.textContent.toLowerCase();
-        label.style.display = text.includes(search) ? 'flex' : 'none';
-      });
+        const search = input.value.toLowerCase();
+        options.forEach(label => {
+            const text = label.textContent.toLowerCase();
+            label.style.display = text.includes(search) ? 'flex' : 'none';
+        });
     });
-  });
+});
+
+// toastify
+function showToast(type = 'info', message = 'Mensaje') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+
+    toast.className = `toast ${type}`;
+    toast.textContent = message;
+
+    container.appendChild(toast);
+
+    // Eliminar el toast después de 15 segundos
+    setTimeout(() => {
+        toast.remove();
+    }, 15000);
+}

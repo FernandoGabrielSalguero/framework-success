@@ -271,6 +271,25 @@ body {
     gap: 1rem;
 }
 
+.form-grid.grid-2,
+.form-grid.grid-3,
+.form-grid.grid-4 {
+    display: grid;
+    gap: 1rem;
+}
+
+.form-grid.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.form-grid.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .form-group {
     flex: 1 1 250px;
     display: flex;
@@ -760,9 +779,9 @@ body {
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
     background: #fff;
-  }
-  
-  .smart-selector-search {
+}
+
+.smart-selector-search {
     margin-top: 12px;
     width: 100%;
     padding: 0.6rem 0.8rem;
@@ -770,9 +789,9 @@ body {
     border: 1px solid #ccc;
     border-radius: var(--border-radius);
     font-size: 1rem;
-  }
-  
-  .smart-selector-list {
+}
+
+.smart-selector-list {
     max-height: 200px;
     overflow-y: auto;
     border: 1px solid #e0e0e0;
@@ -781,19 +800,72 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
-  }
-  
-  .smart-selector-list label {
+}
+
+.smart-selector-list label {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.95rem;
     color: var(--text-color);
-  }
-  
-  .smart-selector-list input[type="checkbox"] {
+}
+
+.smart-selector-list input[type="checkbox"] {
     width: 18px;
     height: 18px;
     accent-color: var(--primary-color);
-  }
-  
+}
+
+/* TOASTIFY */
+#toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.toast {
+    min-width: 250px;
+    padding: 1rem 1.2rem;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    box-shadow: var(--shadow);
+    animation: fadeInRight 0.4s ease, fadeOut 0.4s ease 4.5s forwards;
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.success {
+    background-color: #4caf50;
+}
+
+.toast.error {
+    background-color: #f44336;
+}
+
+.toast.info {
+    background-color: #2196f3;
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
