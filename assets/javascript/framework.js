@@ -27,7 +27,7 @@ function showAlert(type, message) {
     // Nueva duración: 5 segundos (5000ms)
     setTimeout(() => {
         alert.remove();
-    }, 5000);
+    }, 40000);
 }
 
 
