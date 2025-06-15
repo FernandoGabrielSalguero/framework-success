@@ -17,20 +17,6 @@ function toggleSidebar() {
     }
 }
 
-// alertas
-function showAlert(type, message) {
-    const alert = document.createElement('div');
-    alert.className = `floating-alert ${type}`;
-    alert.textContent = message;
-    document.body.appendChild(alert);
-
-    // Nueva duración: 5 segundos (5000ms)
-    setTimeout(() => {
-        alert.remove();
-    }, 40000);
-}
-
-
 // Modales
 
 function openModal() {
@@ -155,7 +141,20 @@ document.querySelectorAll('.smart-selector').forEach(selector => {
     });
 });
 
-// toastify
+// Floating Alert
+// ShowAlert
+function showAlert(type, message) {
+    const alert = document.createElement('div');
+    alert.className = `floating-alert ${type}`;
+    alert.textContent = message;
+    document.body.appendChild(alert);
+
+    // Nueva duración: 5 segundos (5000ms)
+    setTimeout(() => {
+        alert.remove();
+    }, 6000);
+}
+// ShowToast
 function showToast(type = 'info', message = 'Mensaje') {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
@@ -168,5 +167,21 @@ function showToast(type = 'info', message = 'Mensaje') {
     // Eliminar el toast después de 15 segundos
     setTimeout(() => {
         toast.remove();
-    }, 15000);
+    }, 5000);
 }
+
+// ShowToastBoton
+function showToastBoton(type = 'info', message = 'Mensaje') {
+    console.log('Ejecutando showToastBoton:', type, message);
+    const container = document.getElementById('toast-container-boton');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-boton ${type}`;
+    toast.innerHTML = `
+        <button class="toast-close material-icons" onclick="this.parentElement.remove()">close</button>
+        <span>${message}</span>
+    `;
+    container.appendChild(toast);
+}
+

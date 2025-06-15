@@ -73,7 +73,7 @@
                 <div class="card">
                     <h2>Formularios</h2>
                     <form class="form-modern">
-                        <div class="form-grid grid-4">  <!-- Cambiar el valor "4" para que cambie la grilla -->
+                        <div class="form-grid grid-4"> <!-- Cambiar el valor "4" para que cambie la grilla -->
 
                             <!-- Nombre completo -->
                             <div class="input-group">
@@ -239,48 +239,66 @@
                                 </tr>
                             </tbody>
                         </table>
-                        </div>
-                        </div>
-                        <!-- Tarjeta de prueba de Alerts -->
-                        <div class="card">
-                            <h2>Botones</h2>
-                            <br>                        
-                            <div class="form-grid grid-3">
-                                <button class="btn btn-aceptar" onclick="showAlert('success', '¡Operación completada con éxito!')">
-                                    Mostrar Success
-                                </button>
-                                <button class="btn btn-cancelar" onclick="showAlert('error', 'Ha ocurrido un error inesperado.')">
-                                    Mostrar Error
-                                </button>
-                                <button class="btn btn-info" onclick="showAlert('info', 'Este es un mensaje informativo.')">
-                                    Mostrar Info
-                                </button>
-                            </div>
-                            <br>
-                            <!-- toastify -->
-                            <div class="form-grid grid-3">
-                                <button class="btn btn-aceptar" onclick="showToast('success', 'Formulario enviado correctamente');">
-                                    Mostrar Toast Success
-                                </button>
-                                <button class="btn btn-cancelar" onclick="showToast('error', 'Error al enviar el formulario');">
-                                    Mostrar Toast Error
-                                </button>
-                                <button class="btn btn-info" onclick="showToast('info', 'Tenés campos pendientes');">
-                                    Mostrar Toast Info
-                                </button>
-                            </div>
-                        
-                        
-                        </div>
-                        
-                        <!-- tarjeta de prueba modal -->
-                        <div class="card">
-                            <h2>Modales</h2>
-                            <p>Hacé clic en el botón para abrir un modal:</p>
-                            <div class="form-buttons">
-                                <button class="btn btn-info" onclick="openModal()">Abrir modal</button>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta alertas emergentes -->
+                <div class="card">
+                    <h2>Botones</h2>
+                    <br>
+                    <!-- Show alert -->
+                    <div class="form-grid grid-3">
+                        <button class="btn btn-aceptar"
+                            onclick="showAlert('success', '¡Operación completada con éxito!')">
+                            Mostrar Success
+                        </button>
+                        <button class="btn btn-cancelar"
+                            onclick="showAlert('error', 'Ha ocurrido un error inesperado.')">
+                            Mostrar Error
+                        </button>
+                        <button class="btn btn-info" onclick="showAlert('info', 'Este es un mensaje informativo.')">
+                            Mostrar Info
+                        </button>
+                    </div>
+                    <br>
+                    <!-- toastify -->
+                    <div class="form-grid grid-3">
+                        <button class="btn btn-aceptar"
+                            onclick="showToast('success', 'Formulario enviado correctamente');">
+                            Mostrar Toast Success
+                        </button>
+                        <button class="btn btn-cancelar" onclick="showToast('error', 'Error al enviar el formulario');">
+                            Mostrar Toast Error
+                        </button>
+                        <button class="btn btn-info" onclick="showToast('info', 'Tenés campos pendientes');">
+                            Mostrar Toast Info
+                        </button>
+                    </div>
+                    <br>
+                    <!-- toastify con boton -->
+                    <div class="form-grid grid-3">
+                        <button class="btn btn-aceptar"
+                            onclick="showToastBoton('success', 'Formulario enviado correctamente');">
+                            Mostrar Toast Success con boton
+                        </button>
+                        <button class="btn btn-cancelar"
+                            onclick="showToastBoton('error', 'Error al enviar el formulario');">
+                            Mostrar Toast Error con boton
+                        </button>
+                        <button class="btn btn-info" onclick="showToastBoton('info', 'Tenés campos pendientes');">
+                            Mostrar Toast Info con boton
+                        </button>
+                    </div>
+                </div>
+
+                <!-- tarjeta de prueba modal -->
+                <div class="card">
+                    <h2>Modales</h2>
+                    <p>Hacé clic en el botón para abrir un modal:</p>
+                    <div class="form-buttons">
+                        <button class="btn btn-info" onclick="openModal()">Abrir modal</button>
+                    </div>
+                </div>
 
 
                 <!-- Varias tarjetas apiladas -->
@@ -428,6 +446,48 @@
                     </div>
                 </div>
 
+                <!-- tabs -->
+                <div class="card">
+                    <h2>Tarjetas de usuarios</h2>
+                    <div class="card-grid grid-4">
+                        <div class="user-card">
+                            <h3 class="user-name">NOMBRE USUARIO</h3>
+                            <div class="user-info">
+                                <span class="material-icons icon-email">mail</span>
+                                <span class="user-email">Correo electrónico</span>
+                            </div>
+                            <button class="btn btn-info">Guardar</button>
+                        </div>
+
+                        <div class="user-card">
+                            <h3 class="user-name">NOMBRE USUARIO</h3>
+                            <div class="user-info">
+                                <span class="material-icons icon-email">mail</span>
+                                <span class="user-email">Correo electrónico</span>
+                            </div>
+                            <button class="btn btn-info">Guardar</button>
+                        </div>
+
+                        <div class="user-card">
+                            <h3 class="user-name">NOMBRE USUARIO</h3>
+                            <div class="user-info">
+                                <span class="material-icons icon-email">mail</span>
+                                <span class="user-email">Correo electrónico</span>
+                            </div>
+                            <button class="btn btn-info">Guardar</button>
+                        </div>
+
+                        <div class="user-card">
+                            <h3 class="user-name">NOMBRE USUARIO</h3>
+                            <div class="user-info">
+                                <span class="material-icons icon-email">mail</span>
+                                <span class="user-email">Correo electrónico</span>
+                            </div>
+                            <button class="btn btn-info">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+
 
                 <!-- Alert -->
                 <div class="alert-container" id="alertContainer"></div>
@@ -472,5 +532,6 @@
     </script>
 </body>
 <div id="toast-container"></div>
+<div id="toast-container-boton"></div>
 
 </html>
