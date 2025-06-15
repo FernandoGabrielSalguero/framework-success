@@ -85,27 +85,27 @@ function filterOptions(input) {
 
 // JS para validaciones en tiempo real
 
-document.addEventListener('DOMContentLoaded', () => {
-    const emailInput = document.getElementById('correo-validado');
-    const group = document.getElementById('group-email-validado');
-    const errorText = group.querySelector('.input-error-text');
+// document.addEventListener('DOMContentLoaded', () => {
+//     const emailInput = document.getElementById('correo-validado');
+//     const group = document.getElementById('group-email-validado');
+//     const errorText = group.querySelector('.input-error-text');
 
-    // Mostrar el error inicialmente si está vacío
-    if (!emailInput.value.trim()) {
-        group.classList.add('error');
-        errorText.style.display = 'block';
-    }
+//     // Mostrar el error inicialmente si está vacío
+//     if (!emailInput.value.trim()) {
+//         group.classList.add('error');
+//         errorText.style.display = 'block';
+//     }
 
-    emailInput.addEventListener('input', () => {
-        if (emailInput.validity.valid) {
-            group.classList.remove('error');
-            errorText.style.display = 'none';
-        } else {
-            group.classList.add('error');
-            errorText.style.display = 'block';
-        }
-    });
-});
+//     emailInput.addEventListener('input', () => {
+//         if (emailInput.validity.valid) {
+//             group.classList.remove('error');
+//             errorText.style.display = 'none';
+//         } else {
+//             group.classList.add('error');
+//             errorText.style.display = 'block';
+//         }
+//     });
+// });
 
 function validateNombre() {
     const input = document.getElementById("nombre-validado");
