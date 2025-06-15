@@ -320,10 +320,23 @@ body {
 
 /* Tabla */
 .table-container {
-    overflow-x: auto;
-    max-width: 100%;
     width: 100%;
+    max-width: 1500px; /* Ajustar el ancho de la tabla */
+    overflow-x: auto;
+    margin: 0 auto;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
 }
+
+.table-container::-webkit-scrollbar {
+    height: 8px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
 
 .data-table {
     min-width: 600px;
