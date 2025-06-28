@@ -59,7 +59,136 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
     });
+    initInputIcons();
+
+    document.querySelectorAll('textarea[maxlength]').forEach(textarea => {
+        const id = textarea.id;
+        const max = parseInt(textarea.getAttribute('maxlength'), 10);
+        const counter = document.querySelector(`.char-count[data-for="${id}"]`);
+
+        if (!counter) return;
+
+        const updateCount = () => {
+            const currentLength = textarea.value.length;
+            const remaining = max - currentLength;
+            counter.textContent = `Quedan ${remaining} caracteres.`;
+            counter.classList.toggle('warning', remaining <= 20);
+        };
+
+        textarea.addEventListener('input', updateCount);
+        updateCount(); // inicial
+    });
 });
+
+// input icons
+function initInputIcons() {
+    const mappings = {
+        "input-icon-name": "person",
+        "input-icon-dni": "badge",
+        "input-icon-age": "hourglass_bottom",
+        "input-icon-email": "mail",
+        "input-icon-phone": "phone",
+        "input-icon-date": "event",
+        "input-icon-address": "home",
+        "input-icon-cuit": "badge",
+        "input-icon-cp": "markunread_mailbox",
+        "input-icon-globe": "public",
+        "input-icon-city": "location_city",
+        "input-icon-comment": "comment"
+    };
+
+    document.querySelectorAll(".input-icon").forEach(wrapper => {
+        const input = wrapper.querySelector("input, select, textarea");
+        if (!input) return;
+
+        for (const cls in mappings) {
+            if (wrapper.classList.contains(cls)) {
+                // Añadir ícono si no existe
+                if (!wrapper.querySelector("span.material-icons")) {
+                    const icon = document.createElement("span");
+                    icon.classList.add("material-icons");
+                    icon.textContent = mappings[cls];
+                    wrapper.prepend(icon);
+                }
+
+                // Aplicar atributos extra por tipo
+                switch (cls) {
+                    case "input-icon-dni":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("maxlength", "8");
+                        input.setAttribute("pattern", "^[0-9]{7,8}$");
+                        input.setAttribute("inputmode", "numeric");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-age":
+                        input.setAttribute("type", "number");
+                        input.setAttribute("min", "0");
+                        input.setAttribute("max", "120");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-name":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("minlength", "2");
+                        input.setAttribute("maxlength", "60");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-email":
+                        input.setAttribute("type", "email");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-phone":
+                        input.setAttribute("type", "tel");
+                        input.setAttribute("pattern", "[0-9\\+\\-\\s]{7,20}");
+                        input.setAttribute("inputmode", "tel");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-date":
+                        input.setAttribute("type", "date");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-cuit":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("pattern", "^[0-9]{2}-[0-9]{8}-[0-9]{1}$");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-cp":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("pattern", "^[0-9]{4,6}$");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-address":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-city":
+                        input.setAttribute("type", "text");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-comment":
+                        input.setAttribute("maxlength", "233");
+                        input.setAttribute("required", "true");
+                        break;
+
+                    case "input-icon-globe":
+                        // Generalmente es un <select>, validamos que tenga "required"
+                        input.setAttribute("required", "true");
+                        break;
+                }
+
+            }
+        }
+    });
+}
 
 
 // select pro
@@ -185,3 +314,16 @@ function showToastBoton(type = 'info', message = 'Mensaje') {
     container.appendChild(toast);
 }
 
+
+// categorias de productos
+function toggleSubcategorias(btn) {
+    const all = document.querySelectorAll('.subcategorias');
+    all.forEach(ul => {
+        if (ul !== btn.nextElementSibling) {
+            ul.style.display = 'none';
+        }
+    });
+
+    const sub = btn.nextElementSibling;
+    sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
+}

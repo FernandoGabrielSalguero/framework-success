@@ -69,92 +69,73 @@
                     <p>Este es un dashboard de ejemplo con un sidebar moderno y responsive.</p>
                 </div>
 
+
                 <!-- Formulario -->
                 <div class="card">
                     <h2>Formularios</h2>
                     <form class="form-modern">
-                        <div class="form-grid grid-4"> <!-- Cambiar el valor "4" para que cambie la grilla -->
+                        <div class="form-grid grid-4">
 
                             <!-- Nombre completo -->
                             <div class="input-group">
-                                <label for="nombre">Nombre completo
-                                    <span class="tooltip" data-tooltip="Ingresá tu nombre y apellido completo.">
-                                        <span class="material-icons">info</span>
-                                    </span>
-                                </label>
-                                <div class="input-icon">
-                                    <span class="material-icons">person</span>
-                                    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required
-                                        minlength="2" maxlength="60" aria-required="true">
+                                <label for="nombre">Nombre completo</label>
+                                <div class="input-icon input-icon-name">
+                                    <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required />
                                 </div>
-                                <small class="error-message" aria-live="polite"></small>
                             </div>
 
                             <!-- Correo electrónico -->
                             <div class="input-group">
-                                <label for="email">Correo electrónico
-                                    <span class="tooltip" data-tooltip="Ej: usuario@correo.com">
-                                        <span class="material-icons">info</span>
-                                    </span>
-                                </label>
-                                <div class="input-icon">
-                                    <span class="material-icons">mail</span>
-                                    <input type="email" id="email" name="email" placeholder="usuario@correo.com"
-                                        required aria-required="true">
+                                <label for="email">Correo electrónico</label>
+                                <div class="input-icon input-icon-email">
+                                    <input id="email" name="email" placeholder="usuario@correo.com" />
                                 </div>
-                                <small class="error-message" aria-live="polite"></small>
                             </div>
-
-
 
                             <!-- Fecha de nacimiento -->
                             <div class="input-group">
-                                <label for="fecha">Fecha de nacimiento
-                                    <span class="tooltip" data-tooltip="Seleccioná tu fecha de nacimiento.">
-                                        <span class="material-icons">info</span>
-                                    </span>
-                                </label>
-                                <div class="input-icon">
-                                    <span class="material-icons">event</span>
-                                    <input type="date" id="fecha" name="fecha" required>
+                                <label for="fecha">Fecha de nacimiento</label>
+                                <div class="input-icon input-icon-date">
+                                    <input id="fecha" name="fecha" />
                                 </div>
                             </div>
 
                             <!-- Teléfono -->
                             <div class="input-group">
-                                <label for="telefono">Teléfono
-                                    <span class="tooltip" data-tooltip="Incluí el código de área. Ej: +54 11 5555-1234">
-                                        <span class="material-icons">info</span>
-                                    </span>
-                                </label>
-                                <div class="input-icon">
-                                    <span class="material-icons">phone</span>
-                                    <input type="tel" id="telefono" name="telefono" pattern="[0-9\+\-\s]{7,20}"
-                                        required>
+                                <label for="telefono">Teléfono</label>
+                                <div class="input-icon input-icon-phone">
+                                    <input id="telefono" name="telefono" />
+                                </div>
+                            </div>
+
+                            <!-- DNI -->
+                            <div class="input-group">
+                                <label for="dni">DNI</label>
+                                <div class="input-icon input-icon-dni">
+                                    <input id="dni" name="dni" />
+                                </div>
+                            </div>
+
+                            <!-- Edad -->
+                            <div class="input-group">
+                                <label for="edad">Edad</label>
+                                <div class="input-icon input-icon-age">
+                                    <input id="edad" name="edad" />
                                 </div>
                             </div>
 
                             <!-- CUIT -->
                             <div class="input-group">
-                                <label for="cuit">CUIT
-                                    <span class="tooltip" data-tooltip="Ej: 20-12345678-1">
-                                        <span class="material-icons">info</span>
-                                    </span>
-                                </label>
-                                <div class="input-icon">
-                                    <span class="material-icons">badge</span>
-                                    <input type="text" id="cuit" name="cuit" pattern="[0-9]{2}-[0-9]{8}-[0-9]{1}"
-                                        required>
+                                <label for="cuit">CUIT</label>
+                                <div class="input-icon input-icon-cuit">
+                                    <input id="cuit" name="cuit" />
                                 </div>
                             </div>
-
-
 
                             <!-- Provincia -->
                             <div class="input-group">
                                 <label for="provincia">Provincia</label>
-                                <div class="input-icon">
-                                    <span class="material-icons">public</span>
+                                <div class="input-icon input-icon-globe">
                                     <select id="provincia" name="provincia" required>
                                         <option value="">Seleccionar</option>
                                         <option>Buenos Aires</option>
@@ -167,31 +148,37 @@
                             <!-- Localidad -->
                             <div class="input-group">
                                 <label for="localidad">Localidad</label>
-                                <div class="input-icon">
-                                    <span class="material-icons">location_city</span>
-                                    <input type="text" id="localidad" name="localidad" required>
+                                <div class="input-icon input-icon-city">
+                                    <input type="text" id="localidad" name="localidad" required />
                                 </div>
                             </div>
 
                             <!-- Código Postal -->
                             <div class="input-group">
                                 <label for="cp">Código Postal</label>
-                                <div class="input-icon">
-                                    <span class="material-icons">markunread_mailbox</span>
-                                    <input type="text" id="cp" name="cp" pattern="[0-9]{4,6}" required>
+                                <div class="input-icon input-icon-cp">
+                                    <input type="text" id="cp" name="cp" />
                                 </div>
                             </div>
 
                             <!-- Dirección -->
                             <div class="input-group">
                                 <label for="direccion">Dirección</label>
-                                <div class="input-icon">
-                                    <span class="material-icons">home</span>
-                                    <input type="text" id="direccion" name="direccion" required>
+                                <div class="input-icon input-icon-address">
+                                    <input type="text" id="direccion" name="direccion" required />
                                 </div>
                             </div>
-
                         </div>
+                        <!-- Observaciones -->
+                        <div class="input-group">
+                            <label for="observaciones">Observaciones</label>
+                            <div class="input-icon input-icon-comment">
+                                <textarea id="observaciones" name="observaciones" maxlength="233" rows="3"
+                                    placeholder="Escribí un comentario..."></textarea>
+                            </div>
+                            <small class="char-count" data-for="observaciones">Quedan 233 caracteres.</small>
+                        </div>
+
                         <!-- Botones -->
                         <div class="form-buttons">
                             <button class="btn btn-aceptar" type="submit">Enviar</button>
@@ -201,57 +188,58 @@
                 </div>
 
 
-<!-- Tabla -->
-<div class="card tabla-card">
-  <h2>Tablas</h2>
-  <div class="tabla-wrapper">
-    <table class="data-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Apellido</th>
-          <th>Apodo</th>
-          <th>Edad</th>
-          <th>Genero</th>
-          <th>Estado civil</th>
-          <th>Antecedentes</th>
-          <th>Email</th>
-          <th>Rol</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Carlos</td>
-          <td>Ruiz</td>
-          <td>Carlos</td>
-          <td>19</td>
-          <td>Masculino</td>
-          <td>Soltero</td>
-          <td>Sin precedentes</td>
-          <td>carlos@mail.com</td>
-          <td>Administrador</td>
-          <td><span class="badge success">Activo</span></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Laura</td>
-          <td>Méndez</td>
-          <td>Laura</td>
-          <td>22</td>
-          <td>Femenino</td>
-          <td>Soltera</td>
-          <td>Con antecedentes</td>
-          <td>laura@mail.com</td>
-          <td>Editor</td>
-          <td><span class="badge warning">Pendiente</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+
+                <!-- Tabla -->
+                <div class="card tabla-card">
+                    <h2>Tablas</h2>
+                    <div class="tabla-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Apodo</th>
+                                    <th>Edad</th>
+                                    <th>Genero</th>
+                                    <th>Estado civil</th>
+                                    <th>Antecedentes</th>
+                                    <th>Email</th>
+                                    <th>Rol</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Carlos</td>
+                                    <td>Ruiz</td>
+                                    <td>Carlos</td>
+                                    <td>19</td>
+                                    <td>Masculino</td>
+                                    <td>Soltero</td>
+                                    <td>Sin precedentes</td>
+                                    <td>carlos@mail.com</td>
+                                    <td>Administrador</td>
+                                    <td><span class="badge success">Activo</span></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Laura</td>
+                                    <td>Méndez</td>
+                                    <td>Laura</td>
+                                    <td>22</td>
+                                    <td>Femenino</td>
+                                    <td>Soltera</td>
+                                    <td>Con antecedentes</td>
+                                    <td>laura@mail.com</td>
+                                    <td>Editor</td>
+                                    <td><span class="badge warning">Pendiente</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
 
 
                 <!-- Tarjeta alertas emergentes -->
@@ -500,6 +488,147 @@
                     </div>
                 </div>
 
+                <!-- Tarjetas tipo layout 3 secciones -->
+                <div class="triple-layout">
+                    <!-- Columna izquierda: categorías -->
+                    <div class="triple-categorias">
+                        <h3>Categorías</h3>
+                        <ul class="accordion-categorias">
+                            <li>
+                                <button class="categoria-btn" onclick="toggleSubcategorias(this)">Electrónica</button>
+                                <ul class="subcategorias">
+                                    <li>Celulares</li>
+                                    <li>TVs</li>
+                                    <li>Audio</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button class="categoria-btn" onclick="toggleSubcategorias(this)">Moda</button>
+                                <ul class="subcategorias">
+                                    <li>Hombre</li>
+                                    <li>Mujer</li>
+                                    <li>Niños</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button class="categoria-btn" onclick="toggleSubcategorias(this)">Hogar</button>
+                                <ul class="subcategorias">
+                                    <li>Cocina</li>
+                                    <li>Deco</li>
+                                    <li>Muebles</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button class="categoria-btn" onclick="toggleSubcategorias(this)">Juguetes</button>
+                                <ul class="subcategorias">
+                                    <li>Muñecos</li>
+                                    <li>Didácticos</li>
+                                    <li>Exterior</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button class="categoria-btn" onclick="toggleSubcategorias(this)">Libros</button>
+                                <ul class="subcategorias">
+                                    <li>Infantiles</li>
+                                    <li>Novelas</li>
+                                    <li>Técnicos</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Columna derecha -->
+                    <div class="triple-derecha">
+                        <!-- Fila superior: formulario -->
+                        <div class="triple-form">
+                            <h3>Filtrar productos</h3>
+                            <form class="form-grid grid-4">
+                                <!-- Nombre -->
+                                <div class="input-group">
+                                    <label for="filtro-nombre">Nombre</label>
+                                    <div class="input-icon">
+                                        <span class="material-icons">search</span>
+                                        <input type="text" id="filtro-nombre" placeholder="Nombre">
+                                    </div>
+                                </div>
+
+                                <!-- Categoría -->
+                                <div class="input-group">
+                                    <label for="filtro-categoria">Categoría</label>
+                                    <div class="input-icon">
+                                        <span class="material-icons">category</span>
+                                        <select id="filtro-categoria">
+                                            <option value="">Todas</option>
+                                            <option value="electronica">Electrónica</option>
+                                            <option value="moda">Moda</option>
+                                            <option value="hogar">Hogar</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- Precio mínimo -->
+                                <div class="input-group">
+                                    <label for="precio-min">Precio mínimo</label>
+                                    <div class="input-icon">
+                                        <span class="material-icons">attach_money</span>
+                                        <input type="number" id="precio-min" placeholder="0">
+                                    </div>
+                                </div>
+
+                                <!-- Precio máximo -->
+                                <div class="input-group">
+                                    <label for="precio-max">Precio máximo</label>
+                                    <div class="input-icon">
+                                        <span class="material-icons">attach_money</span>
+                                        <input type="number" id="precio-max" placeholder="10000">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!-- Fila inferior: tarjetas -->
+                        <div class="triple-tarjetas card-grid grid-3">
+                            <div class="product-card">
+                                <div class="product-header">
+                                    <h4>UI/UX Design Team</h4>
+                                    <p>Contrary to popular belief, lorem Ipsum is not simply</p>
+                                </div>
+                                <div class="product-body">
+                                    <div class="user-info">
+                                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar" />
+                                        <div>
+                                            <strong>Jason Haston</strong>
+                                            <div class="role">Team Leader</div>
+                                        </div>
+                                        <div class="team-avatars">
+                                            <img src="https://randomuser.me/api/portraits/women/65.jpg"
+                                                class="avatar-sm" />
+                                            <img src="https://randomuser.me/api/portraits/men/23.jpg"
+                                                class="avatar-sm" />
+                                            <img src="https://randomuser.me/api/portraits/men/45.jpg"
+                                                class="avatar-sm" />
+                                            <span class="extra-count">+4</span>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="product-footer">
+                                        <div class="metric">
+                                            <strong>245</strong>
+                                            <span>Design Project</span>
+                                        </div>
+                                        <div class="metric">
+                                            <strong>1085/765</strong>
+                                            <span>Task Reports</span>
+                                        </div>
+                                        <button class="btn-view">View Details</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Alert -->
                 <div class="alert-container" id="alertContainer"></div>
