@@ -265,6 +265,14 @@ body {
     background-color: #1976d2;
 }
 
+.btn-disabled {
+    background-color: #ccc !important;
+    color: #666 !important;
+    cursor: not-allowed !important;
+    pointer-events: none;
+    box-shadow: none;
+}
+
 /* Formulario */
 .form-grid {
     display: flex;
@@ -1223,6 +1231,10 @@ body {
         width: 100%;
     }
 
+    .triple-tarjetas .card-grid.grid-3 {
+        grid-template-columns: 1fr;
+    }
+
     .triple-derecha {
         gap: 1.5rem;
     }
@@ -1244,5 +1256,3 @@ body {
         align-items: flex-start;
     }
 }
-
-

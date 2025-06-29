@@ -78,6 +78,38 @@ document.addEventListener("DOMContentLoaded", () => {
         textarea.addEventListener('input', updateCount);
         updateCount(); // inicial
     });
+
+    // Habilitar botón de publicación si campos requeridos están completos
+    const formPublicacion = document.getElementById('form-publicacion');
+    const btnGuardar = document.getElementById('btn-guardar');
+
+    if (formPublicacion && btnGuardar) {
+        const camposRequeridos = formPublicacion.querySelectorAll('[required]');
+
+        const validarCampos = () => {
+            let completo = true;
+            camposRequeridos.forEach(campo => {
+                if (!campo.value.trim()) {
+                    completo = false;
+                }
+            });
+
+            if (completo) {
+                btnGuardar.disabled = false;
+                btnGuardar.classList.remove('btn-disabled');
+                btnGuardar.classList.add('btn-aceptar');
+                btnGuardar.textContent = 'Publicar';
+            } else {
+                btnGuardar.disabled = true;
+                btnGuardar.classList.add('btn-disabled');
+                btnGuardar.classList.remove('btn-aceptar');
+                btnGuardar.textContent = 'Completar datos...';
+            }
+        };
+
+        formPublicacion.addEventListener('input', validarCampos);
+        validarCampos(); // Verifica al cargar
+    }
 });
 
 // input icons
@@ -210,31 +242,6 @@ function filterOptions(input) {
         li.style.display = li.textContent.toLowerCase().includes(filter) ? 'block' : 'none';
     });
 }
-
-
-// JS para validaciones en tiempo real
-
-// document.addEventListener('DOMContentLoaded', () => {
-//     const emailInput = document.getElementById('correo-validado');
-//     const group = document.getElementById('group-email-validado');
-//     const errorText = group.querySelector('.input-error-text');
-
-//     // Mostrar el error inicialmente si está vacío
-//     if (!emailInput.value.trim()) {
-//         group.classList.add('error');
-//         errorText.style.display = 'block';
-//     }
-
-//     emailInput.addEventListener('input', () => {
-//         if (emailInput.validity.valid) {
-//             group.classList.remove('error');
-//             errorText.style.display = 'none';
-//         } else {
-//             group.classList.add('error');
-//             errorText.style.display = 'block';
-//         }
-//     });
-// });
 
 function validateNombre() {
     const input = document.getElementById("nombre-validado");
