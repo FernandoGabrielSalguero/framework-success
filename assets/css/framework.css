@@ -1231,9 +1231,9 @@ body {
         width: 100%;
     }
 
-    .triple-tarjetas .card-grid.grid-3 {
-        grid-template-columns: 1fr;
-    }
+.triple-tarjetas.card-grid.grid-3 {
+    grid-template-columns: 1fr;
+}
 
     .triple-derecha {
         gap: 1.5rem;
