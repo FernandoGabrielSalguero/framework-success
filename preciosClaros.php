@@ -1,53 +1,15 @@
 <?php
-function getSucursales($lat, $lng, $limit = 10) {
-    $url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=$lat&lng=$lng&limit=$limit";
+// sucursales.php
 
-    $headers = [
-        'Accept: application/json, text/plain, */*',
-        'Accept-Language: es-AR,es;q=0.9',
-        'Connection: keep-alive',
-        'Referer: https://www.preciosclaros.gob.ar/',
-        'Origin: https://www.preciosclaros.gob.ar',
-    ];
-
-    $ch = curl_init($url);
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36',
-        CURLOPT_TIMEOUT => 10,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTPHEADER => $headers
-    ]);
-
-    $response = curl_exec($ch);
-
-    if (curl_errno($ch)) {
-        echo "❌ Error cURL: " . curl_error($ch);
-        curl_close($ch);
-        return null;
-    }
-
-    $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    if ($http_code !== 200) {
-        echo "❌ Error HTTP: Código $http_code<br>";
-        return null;
-    }
-
-    $data = json_decode($response, true);
-    if (!isset($data['sucursales'])) {
-        echo "❌ La respuesta no contiene sucursales válidas.<br>";
-        return null;
-    }
-
-    return $data['sucursales'];
-}
-
-// Coordenadas (modificá según tu ciudad)
 $lat = -32.9252;
 $lng = -68.8443;
-$sucursales = getSucursales($lat, $lng);
+$limit = 10;
+
+// Dirección local del proxy
+$proxyUrl = "http://localhost/api_proxy_sucursales.php?lat=$lat&lng=$lng&limit=$limit";
+
+$response = file_get_contents($proxyUrl);
+$data = json_decode($response, true);
 
 ?>
 <!DOCTYPE html>
@@ -71,8 +33,8 @@ $sucursales = getSucursales($lat, $lng);
 <body>
 <h1>🏪 Sucursales cercanas</h1>
 
-<?php if (!empty($sucursales)): ?>
-    <?php foreach ($sucursales as $s): ?>
+<?php if (isset($data['sucursales']) && count($data['sucursales']) > 0): ?>
+    <?php foreach ($data['sucursales'] as $s): ?>
         <div class="sucursal">
             <strong><?= htmlspecialchars($s['sucursalNombre']) ?></strong><br>
             Dirección: <?= htmlspecialchars($s['direccion']) ?><br>
@@ -83,6 +45,8 @@ $sucursales = getSucursales($lat, $lng);
             Bandera: <?= htmlspecialchars($s['banderaDescripcion']) ?>
         </div>
     <?php endforeach; ?>
+<?php elseif (isset($data['error'])): ?>
+    <p><strong>⚠️ Error desde el proxy:</strong> <?= htmlspecialchars($data['error']) ?></p>
 <?php else: ?>
     <p><strong>No se encontraron sucursales disponibles.</strong></p>
 <?php endif; ?>
