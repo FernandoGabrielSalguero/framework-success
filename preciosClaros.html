@@ -2,99 +2,47 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>¿Dónde compro más barato?</title>
+  <title>Sucursales desde JS</title>
   <style>
-    body { font-family: sans-serif; background: #f5f5f5; padding: 2rem; }
-    input, button { padding: 0.5rem; margin: 0.2rem; }
-    .producto, .resultado {
-      background: white; margin: 1rem 0; padding: 1rem;
-      border-left: 5px solid #007BFF; border-radius: 6px;
-    }
-    .error { color: red; }
-    .success { color: green; }
+    body { font-family: Arial; padding: 2rem; background: #f0f0f0; }
+    .sucursal { background: white; padding: 1rem; margin: 1rem 0; border-left: 4px solid #007BFF; border-radius: 6px; }
   </style>
 </head>
 <body>
-
-  <h1>🛒 ¿Dónde compro más barato?</h1>
-
-  <input type="text" id="productoInput" placeholder="Ej: leche la serenisima zerolact 1l" size="50">
-  <button onclick="agregarAlCarrito()">Agregar al carrito</button>
-
-  <h2>🧺 Carrito</h2>
-  <ul id="carritoLista"></ul>
-  <button onclick="comparar()">🔍 Comparar precios</button>
-
-  <h2>💲 Resultados</h2>
-  <div id="resultados"></div>
+  <h1>🏪 Sucursales cercanas (JS)</h1>
+  <div id="resultado">Cargando...</div>
 
   <script>
-    const carrito = [];
     const lat = -32.9252;
     const lng = -68.8443;
 
-    function agregarAlCarrito() {
-      const producto = document.getElementById("productoInput").value.trim();
-      if (producto && !carrito.includes(producto)) {
-        carrito.push(producto);
-        actualizarCarrito();
-        document.getElementById("productoInput").value = '';
-      }
-    }
-
-    function actualizarCarrito() {
-      const ul = document.getElementById("carritoLista");
-      ul.innerHTML = '';
-      carrito.forEach(prod => {
-        const li = document.createElement("li");
-        li.textContent = prod;
-        ul.appendChild(li);
-      });
-    }
-
-    async function comparar() {
-      const resultados = document.getElementById("resultados");
-      resultados.innerHTML = "Buscando sucursales...";
-
-      const sucursalesResp = await fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`);
-      const sucursalesData = await sucursalesResp.json();
-      const sucursales = sucursalesData.sucursales;
-
-      if (!sucursales || sucursales.length === 0) {
-        resultados.innerHTML = "<p class='error'>❌ No se encontraron sucursales cercanas.</p>";
-        return;
-      }
-
-      resultados.innerHTML = "<p class='success'>🔎 Comparando precios...</p>";
-
-      for (const producto of carrito) {
-        const contenedor = document.createElement("div");
-        contenedor.className = "producto";
-        contenedor.innerHTML = `<strong>📦 ${producto}</strong><br><ul id="res-${producto}"></ul>`;
-        resultados.appendChild(contenedor);
-
-        for (const suc of sucursales) {
-          const query = encodeURIComponent(producto);
-          const url = `https://d3e6htiiul5ek9.cloudfront.net/prod/products?terms=${query}&sucursalId=${suc.id}`;
-          try {
-            const res = await fetch(url);
-            const data = await res.json();
-            const item = data && data[0];
-
-            const li = document.createElement("li");
-            if (item && item.precioUnidad) {
-              li.innerHTML = `🛒 <strong>${suc.sucursalNombre}</strong>: $${item.precioUnidad.toFixed(2)}`;
-            } else {
-              li.innerHTML = `⚠️ <strong>${suc.sucursalNombre}</strong>: No disponible`;
-            }
-            document.getElementById(`res-${producto}`).appendChild(li);
-          } catch (e) {
-            console.error("Error con sucursal " + suc.id, e);
-          }
+    fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=10`)
+      .then(res => res.json())
+      .then(data => {
+        const contenedor = document.getElementById('resultado');
+        if (!data.sucursales || data.sucursales.length === 0) {
+          contenedor.innerHTML = "<p>No se encontraron sucursales.</p>";
+          return;
         }
-      }
-    }
-  </script>
 
+        contenedor.innerHTML = '';
+        data.sucursales.forEach(s => {
+          contenedor.innerHTML += `
+            <div class="sucursal">
+              <strong>${s.sucursalNombre}</strong><br>
+              Dirección: ${s.direccion}<br>
+              Localidad: ${s.localidad}<br>
+              Distancia: ${s.distanciaDescripcion}<br>
+              Tipo: ${s.sucursalTipo}<br>
+              Bandera: ${s.banderaDescripcion}
+            </div>
+          `;
+        });
+      })
+      .catch(err => {
+        document.getElementById('resultado').innerHTML = "❌ Error al obtener datos";
+        console.error(err);
+      });
+  </script>
 </body>
 </html>
