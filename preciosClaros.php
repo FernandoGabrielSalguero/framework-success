@@ -6,7 +6,7 @@ $lng = -68.8443;
 $limit = 10;
 
 // Dirección local del proxy
-$proxyUrl = "http://localhost/api_proxy_sucursales.php?lat=$lat&lng=$lng&limit=$limit";
+$proxyUrl = "https://www.fernandosalguero.com/cdn/api_proxy_sucursales.php?lat=$lat&lng=$lng&limit=$limit";
 
 $response = file_get_contents($proxyUrl);
 $data = json_decode($response, true);
