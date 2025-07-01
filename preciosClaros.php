@@ -1,8 +1,6 @@
 <?php
-function getSucursalesPorLocalidad($provincia, $localidad) {
-    $provincia = urlencode($provincia);
-    $localidad = urlencode($localidad);
-    $url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?provincia=$provincia&localidad=$localidad&limit=5";
+function getSucursales($lat, $lng) {
+    $url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=$lat&lng=$lng&limit=5";
 
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -35,67 +33,45 @@ function buscarProductos($sucursalId, $termino) {
 
     return json_decode($response, true);
 }
-?>
 
-<!DOCTYPE html>
-<html lang="es">
+// Coordenadas de ejemplo (revisadas)
+$lat = -34.6037;  // Microcentro CABA
+$lng = -58.3816;
+
+echo "<!DOCTYPE html>
+<html lang='es'>
 <head>
-    <meta charset="UTF-8">
-    <title>Buscar precios - Precios Claros</title>
+    <meta charset='UTF-8'>
+    <title>Precios Claros - Búsqueda Rápida</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 2rem; background: #f4f4f4; }
+        body { font-family: Arial, sans-serif; margin: 2rem; background: #f8f9fa; }
         h1 { color: #007BFF; }
-        form { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; }
-        input, select { padding: 8px; margin: 5px 0; width: 100%; }
-        button { padding: 10px 15px; background: #28a745; color: #fff; border: none; cursor: pointer; border-radius: 4px; }
         .producto { padding: 10px; margin-bottom: 10px; background: #fff; border: 1px solid #ccc; border-radius: 5px; }
     </style>
 </head>
 <body>
+<h1>🛒 Resultados de Precios Claros</h1>";
 
-<h1>🛒 Buscar productos en Precios Claros</h1>
-<form method="GET">
-    <label>Provincia:</label>
-    <input type="text" name="provincia" required placeholder="Ej: Buenos Aires">
+$sucursales = getSucursales($lat, $lng);
+if (!empty($sucursales) && isset($sucursales[0]['id'])) {
+    $sucursal = $sucursales[0];
+    $sucursalId = $sucursal['id'];
+    echo "<h2>Sucursal: {$sucursal['nombre']} ({$sucursal['direccion']})</h2>";
 
-    <label>Localidad:</label>
-    <input type="text" name="localidad" required placeholder="Ej: Morón">
+    $productos = buscarProductos($sucursalId, 'leche');
 
-    <label>Producto:</label>
-    <input type="text" name="producto" required placeholder="Ej: yerba, leche, arroz">
-
-    <button type="submit">Buscar</button>
-</form>
-
-<?php
-if (isset($_GET['provincia'], $_GET['localidad'], $_GET['producto'])) {
-    $provincia = $_GET['provincia'];
-    $localidad = $_GET['localidad'];
-    $producto = $_GET['producto'];
-
-    $sucursales = getSucursalesPorLocalidad($provincia, $localidad);
-
-    if (!empty($sucursales) && isset($sucursales[0]['id'])) {
-        $sucursal = $sucursales[0];
-        $sucursalId = $sucursal['id'];
-        echo "<h2>Sucursal: {$sucursal['nombre']} ({$sucursal['direccion']})</h2>";
-
-        $productos = buscarProductos($sucursalId, $producto);
-
-        if (!empty($productos)) {
-            foreach ($productos as $item) {
-                $prod = $item['producto'];
-                $precio = $item['precio'];
-                echo "<div class='producto'><strong>{$prod['descripcion']}</strong><br>Precio: $".number_format($precio, 2)."</div>";
-            }
-        } else {
-            echo "<p>No se encontraron productos con ese término.</p>";
+    if (!empty($productos)) {
+        foreach ($productos as $item) {
+            $prod = $item['producto'];
+            $precio = $item['precio'];
+            echo "<div class='producto'><strong>{$prod['descripcion']}</strong><br>Precio: $".number_format($precio, 2)."</div>";
         }
     } else {
-        echo "<p><strong>No se encontraron sucursales para esa provincia/localidad.</strong></p>";
+        echo "<p>No se encontraron productos con ese término.</p>";
     }
+} else {
+    echo "<p><strong>No se encontraron sucursales para las coordenadas dadas.</strong></p>";
 }
-?>
 
-</body>
-</html>
+echo "</body></html>";
+?>
