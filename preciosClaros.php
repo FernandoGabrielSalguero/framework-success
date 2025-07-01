@@ -1,16 +1,20 @@
 <?php
-// sucursales.php
-
 $lat = -32.9252;
 $lng = -68.8443;
 $limit = 10;
 
-// Dirección local del proxy
 $proxyUrl = "https://www.fernandosalguero.com/cdn/api_proxy_sucursales.php?lat=$lat&lng=$lng&limit=$limit";
 
-$response = file_get_contents($proxyUrl);
+$ch = curl_init($proxyUrl);
+curl_setopt_array($ch, [
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_TIMEOUT => 10,
+    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_SSL_VERIFYPEER => false
+]);
+$response = curl_exec($ch);
+curl_close($ch);
 $data = json_decode($response, true);
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
