@@ -4,111 +4,97 @@
   <meta charset="UTF-8">
   <title>¿Dónde compro más barato?</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2rem; background: #f5f5f5; }
-    input, button { padding: 0.5rem; font-size: 1rem; margin-right: 0.5rem; }
-    .producto { background: white; margin: 1rem 0; padding: 1rem; border-left: 5px solid #28a745; border-radius: 6px; }
-    .error { color: red; margin-top: 1rem; }
+    body { font-family: sans-serif; background: #f5f5f5; padding: 2rem; }
+    input, button { padding: 0.5rem; margin: 0.2rem; }
+    .producto, .resultado {
+      background: white; margin: 1rem 0; padding: 1rem;
+      border-left: 5px solid #007BFF; border-radius: 6px;
+    }
+    .error { color: red; }
+    .success { color: green; }
   </style>
 </head>
 <body>
+
   <h1>🛒 ¿Dónde compro más barato?</h1>
 
-  <input type="text" id="termino" placeholder="Ej: leche, arroz, yerba...">
+  <input type="text" id="productoInput" placeholder="Ej: leche la serenisima zerolact 1l" size="50">
   <button onclick="agregarAlCarrito()">Agregar al carrito</button>
 
   <h2>🧺 Carrito</h2>
-  <ul id="carrito"></ul>
+  <ul id="carritoLista"></ul>
   <button onclick="comparar()">🔍 Comparar precios</button>
 
   <h2>💲 Resultados</h2>
   <div id="resultados"></div>
-  <div class="error" id="error"></div>
 
   <script>
     const carrito = [];
+    const lat = -32.9252;
+    const lng = -68.8443;
 
     function agregarAlCarrito() {
-      const termino = document.getElementById('termino').value.trim();
-      if (termino && !carrito.includes(termino)) {
-        carrito.push(termino);
+      const producto = document.getElementById("productoInput").value.trim();
+      if (producto && !carrito.includes(producto)) {
+        carrito.push(producto);
         actualizarCarrito();
-        document.getElementById('termino').value = '';
+        document.getElementById("productoInput").value = '';
       }
     }
 
     function actualizarCarrito() {
-      const ul = document.getElementById('carrito');
-      ul.innerHTML = carrito.map(item => `<li>${item}</li>`).join('');
+      const ul = document.getElementById("carritoLista");
+      ul.innerHTML = '';
+      carrito.forEach(prod => {
+        const li = document.createElement("li");
+        li.textContent = prod;
+        ul.appendChild(li);
+      });
     }
 
     async function comparar() {
-      const resultados = document.getElementById('resultados');
-      const error = document.getElementById('error');
-      resultados.innerHTML = 'Buscando sucursales...';
-      error.textContent = '';
+      const resultados = document.getElementById("resultados");
+      resultados.innerHTML = "Buscando sucursales...";
 
-      const lat = -32.9252;
-      const lng = -68.8443;
+      const sucursalesResp = await fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`);
+      const sucursalesData = await sucursalesResp.json();
+      const sucursales = sucursalesData.sucursales;
 
-      try {
-        const resSuc = await fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`);
-        const dataSuc = await resSuc.json();
-        const sucursales = dataSuc.sucursales;
+      if (!sucursales || sucursales.length === 0) {
+        resultados.innerHTML = "<p class='error'>❌ No se encontraron sucursales cercanas.</p>";
+        return;
+      }
 
-        if (!sucursales || sucursales.length === 0) {
-          resultados.innerHTML = '❌ No se encontraron sucursales.';
-          return;
-        }
+      resultados.innerHTML = "<p class='success'>🔎 Comparando precios...</p>";
 
-        resultados.innerHTML = 'Buscando productos...';
-
-        let comparativa = [];
+      for (const producto of carrito) {
+        const contenedor = document.createElement("div");
+        contenedor.className = "producto";
+        contenedor.innerHTML = `<strong>📦 ${producto}</strong><br><ul id="res-${producto}"></ul>`;
+        resultados.appendChild(contenedor);
 
         for (const suc of sucursales) {
-          for (const term of carrito) {
-            const query = new URLSearchParams({
-              sucursalId: suc.sucursalId,
-              term: term
-            });
+          const query = encodeURIComponent(producto);
+          const url = `https://d3e6htiiul5ek9.cloudfront.net/prod/products?terms=${query}&sucursalId=${suc.id}`;
+          try {
+            const res = await fetch(url);
+            const data = await res.json();
+            const item = data && data[0];
 
-            const resProd = await fetch(`api_productos.php?${query.toString()}`);
-            if (!resProd.ok) continue;
-
-            const productos = await resProd.json();
-
-            for (const item of productos) {
-              comparativa.push({
-                descripcion: item.producto.descripcion,
-                precio: item.precio,
-                sucursal: suc.sucursalNombre,
-                direccion: suc.direccion
-              });
+            const li = document.createElement("li");
+            if (item && item.precioUnidad) {
+              li.innerHTML = `🛒 <strong>${suc.sucursalNombre}</strong>: $${item.precioUnidad.toFixed(2)}`;
+            } else {
+              li.innerHTML = `⚠️ <strong>${suc.sucursalNombre}</strong>: No disponible`;
             }
+            document.getElementById(`res-${producto}`).appendChild(li);
+          } catch (e) {
+            console.error("Error con sucursal " + suc.id, e);
           }
         }
-
-        if (comparativa.length === 0) {
-          resultados.innerHTML = '❌ No se encontraron productos.';
-          return;
-        }
-
-        comparativa.sort((a, b) => a.precio - b.precio);
-
-        resultados.innerHTML = comparativa.map(p => `
-          <div class="producto">
-            <strong>${p.descripcion}</strong><br>
-            Precio: $${p.precio.toFixed(2)}<br>
-            Sucursal: ${p.sucursal}<br>
-            Dirección: ${p.direccion}
-          </div>
-        `).join('');
-
-      } catch (err) {
-        console.error(err);
-        error.textContent = '❌ Error general al buscar precios.';
-        resultados.innerHTML = '';
       }
     }
   </script>
+
 </body>
 </html>
