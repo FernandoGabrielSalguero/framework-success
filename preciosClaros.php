@@ -34,23 +34,44 @@ function buscarProductos($sucursalId, $termino) {
     return json_decode($response, true);
 }
 
-// Coordenadas de ejemplo (CABA)
-$lat = -34.6037;
-$lng = -58.3816;
+// Coordenadas de ejemplo (revisadas)
+$lat = -34.6083;  // Microcentro CABA
+$lng = -58.3712;
 
-// Paso 1: buscar sucursales
+echo "<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Precios Claros - Búsqueda Rápida</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 2rem; background: #f8f9fa; }
+        h1 { color: #007BFF; }
+        .producto { padding: 10px; margin-bottom: 10px; background: #fff; border: 1px solid #ccc; border-radius: 5px; }
+    </style>
+</head>
+<body>
+<h1>🛒 Resultados de Precios Claros</h1>";
+
 $sucursales = getSucursales($lat, $lng);
 if (!empty($sucursales) && isset($sucursales[0]['id'])) {
-    $sucursalId = $sucursales[0]['id'];
-    echo "Sucursal ID: $sucursalId\n";
+    $sucursal = $sucursales[0];
+    $sucursalId = $sucursal['id'];
+    echo "<h2>Sucursal: {$sucursal['nombre']} ({$sucursal['direccion']})</h2>";
 
-    // Paso 2: buscar productos
     $productos = buscarProductos($sucursalId, 'leche');
-    echo "Productos encontrados:\n";
-    foreach ($productos as $producto) {
-        echo "- " . $producto['producto']['descripcion'] . " - $" . $producto['precio'] . "\n";
+
+    if (!empty($productos)) {
+        foreach ($productos as $item) {
+            $prod = $item['producto'];
+            $precio = $item['precio'];
+            echo "<div class='producto'><strong>{$prod['descripcion']}</strong><br>Precio: $".number_format($precio, 2)."</div>";
+        }
+    } else {
+        echo "<p>No se encontraron productos con ese término.</p>";
     }
 } else {
-    echo "No se encontraron sucursales.\n";
+    echo "<p><strong>No se encontraron sucursales para las coordenadas dadas.</strong></p>";
 }
+
+echo "</body></html>";
 ?>
