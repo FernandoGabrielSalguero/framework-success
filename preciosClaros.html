@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sucursales desde JS</title>
+  <style>
+    body { font-family: Arial; padding: 2rem; background: #f0f0f0; }
+    .sucursal { background: white; padding: 1rem; margin: 1rem 0; border-left: 4px solid #007BFF; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <h1>🏪 Sucursales cercanas (JS)</h1>
+  <div id="resultado">Cargando...</div>
+
+  <script>
+    const lat = -32.9252;
+    const lng = -68.8443;
+
+    fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=10`)
+      .then(res => res.json())
+      .then(data => {
+        const contenedor = document.getElementById('resultado');
+        if (!data.sucursales || data.sucursales.length === 0) {
+          contenedor.innerHTML = "<p>No se encontraron sucursales.</p>";
+          return;
+        }
+
+        contenedor.innerHTML = '';
+        data.sucursales.forEach(s => {
+          contenedor.innerHTML += `
+            <div class="sucursal">
+              <strong>${s.sucursalNombre}</strong><br>
+              Dirección: ${s.direccion}<br>
+              Localidad: ${s.localidad}<br>
+              Distancia: ${s.distanciaDescripcion}<br>
+              Tipo: ${s.sucursalTipo}<br>
+              Bandera: ${s.banderaDescripcion}
+            </div>
+          `;
+        });
+      })
+      .catch(err => {
+        document.getElementById('resultado').innerHTML = "❌ Error al obtener datos";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
