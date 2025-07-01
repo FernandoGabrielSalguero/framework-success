@@ -2,90 +2,113 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Comparar precio de Leche</title>
+  <title>¿Dónde compro más barato?</title>
   <style>
-    body { font-family: Arial; background: #f4f4f4; padding: 2rem; }
-    .card {
-      background: white;
-      margin: 1rem 0;
-      padding: 1rem;
-      border-left: 4px solid #007BFF;
-      border-radius: 6px;
-    }
-    .barato {
-      border-left-color: green;
-      font-weight: bold;
-    }
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f5f5f5; }
+    input, button { padding: 0.5rem; font-size: 1rem; margin-right: 0.5rem; }
+    .producto { background: white; margin: 1rem 0; padding: 1rem; border-left: 5px solid #28a745; border-radius: 6px; }
+    .error { color: red; margin-top: 1rem; }
   </style>
 </head>
 <body>
+  <h1>🛒 ¿Dónde compro más barato?</h1>
 
-<h1>🍼 Comparador: Leche La Serenísima Zerolact 1L</h1>
-<div id="result">Buscando precios...</div>
+  <input type="text" id="termino" placeholder="Ej: leche, arroz, yerba...">
+  <button onclick="agregarAlCarrito()">Agregar al carrito</button>
 
-<script>
-  const lat = -32.9252;
-  const lng = -68.8443;
-  const term = "zerolact 1l";
-  const resultDiv = document.getElementById('result');
+  <h2>🧺 Carrito</h2>
+  <ul id="carrito"></ul>
+  <button onclick="comparar()">🔍 Comparar precios</button>
 
-  fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`)
-    .then(res => res.json())
-    .then(async data => {
-      if (!data.sucursales || data.sucursales.length === 0) {
-        resultDiv.innerHTML = "❌ No se encontraron sucursales.";
-        return;
+  <h2>💲 Resultados</h2>
+  <div id="resultados"></div>
+  <div class="error" id="error"></div>
+
+  <script>
+    const carrito = [];
+
+    function agregarAlCarrito() {
+      const termino = document.getElementById('termino').value.trim();
+      if (termino && !carrito.includes(termino)) {
+        carrito.push(termino);
+        actualizarCarrito();
+        document.getElementById('termino').value = '';
       }
+    }
 
-      let resultados = [];
+    function actualizarCarrito() {
+      const ul = document.getElementById('carrito');
+      ul.innerHTML = carrito.map(item => `<li>${item}</li>`).join('');
+    }
 
-      for (const suc of data.sucursales) {
-        const res = await fetch('api_productos.php', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ sucursalId: suc.sucursalId, term })
-        });
+    async function comparar() {
+      const resultados = document.getElementById('resultados');
+      const error = document.getElementById('error');
+      resultados.innerHTML = 'Buscando sucursales...';
+      error.textContent = '';
 
-        const productos = await res.json();
+      const lat = -32.9252;
+      const lng = -68.8443;
 
-        if (Array.isArray(productos)) {
-          const item = productos.find(p =>
-            p.producto.descripcion.toLowerCase().includes("zerolact")
-          );
+      try {
+        const resSuc = await fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`);
+        const dataSuc = await resSuc.json();
+        const sucursales = dataSuc.sucursales;
 
-          if (item) {
-            resultados.push({
-              nombre: suc.sucursalNombre,
-              direccion: suc.direccion,
-              precio: item.precio
+        if (!sucursales || sucursales.length === 0) {
+          resultados.innerHTML = '❌ No se encontraron sucursales.';
+          return;
+        }
+
+        resultados.innerHTML = 'Buscando productos...';
+
+        let comparativa = [];
+
+        for (const suc of sucursales) {
+          for (const term of carrito) {
+            const query = new URLSearchParams({
+              sucursalId: suc.sucursalId,
+              term: term
             });
+
+            const resProd = await fetch(`api_productos.php?${query.toString()}`);
+            if (!resProd.ok) continue;
+
+            const productos = await resProd.json();
+
+            for (const item of productos) {
+              comparativa.push({
+                descripcion: item.producto.descripcion,
+                precio: item.precio,
+                sucursal: suc.sucursalNombre,
+                direccion: suc.direccion
+              });
+            }
           }
         }
-      }
 
-      if (resultados.length === 0) {
-        resultDiv.innerHTML = "❌ No se encontró la leche Zerolact en las sucursales.";
-        return;
-      }
+        if (comparativa.length === 0) {
+          resultados.innerHTML = '❌ No se encontraron productos.';
+          return;
+        }
 
-      resultados.sort((a, b) => a.precio - b.precio);
+        comparativa.sort((a, b) => a.precio - b.precio);
 
-      resultDiv.innerHTML = "";
-      resultados.forEach((r, i) => {
-        resultDiv.innerHTML += `
-          <div class="card ${i === 0 ? 'barato' : ''}">
-            🏬 <strong>${r.nombre}</strong><br>
-            📍 ${r.direccion}<br>
-            💲 Precio: $${r.precio.toFixed(2)}
+        resultados.innerHTML = comparativa.map(p => `
+          <div class="producto">
+            <strong>${p.descripcion}</strong><br>
+            Precio: $${p.precio.toFixed(2)}<br>
+            Sucursal: ${p.sucursal}<br>
+            Dirección: ${p.direccion}
           </div>
-        `;
-      });
-    })
-    .catch(err => {
-      console.error(err);
-      resultDiv.innerHTML = "❌ Error general al buscar precios.";
-    });
-</script>
+        `).join('');
 
+      } catch (err) {
+        console.error(err);
+        error.textContent = '❌ Error general al buscar precios.';
+        resultados.innerHTML = '';
+      }
+    }
+  </script>
 </body>
 </html>

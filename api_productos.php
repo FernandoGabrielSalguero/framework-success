@@ -3,9 +3,8 @@
 
 header('Content-Type: application/json');
 
-$input = json_decode(file_get_contents('php://input'), true);
-$sucursalId = $input['sucursalId'] ?? null;
-$term = $input['term'] ?? null;
+$sucursalId = $_GET['sucursalId'] ?? null;
+$term = $_GET['term'] ?? null;
 
 if (!$sucursalId || !$term) {
     http_response_code(400);
@@ -32,7 +31,7 @@ $headers = [
 $ch = curl_init($url);
 curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36',
+    CURLOPT_USERAGENT => 'Mozilla/5.0',
     CURLOPT_TIMEOUT => 10,
     CURLOPT_POST => true,
     CURLOPT_POSTFIELDS => $data,
@@ -41,15 +40,8 @@ curl_setopt_array($ch, [
 ]);
 
 $response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    http_response_code(500);
-    echo json_encode(["error" => "Error cURL: " . curl_error($ch)]);
-    curl_close($ch);
-    exit;
-}
-
 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
+
 http_response_code($httpCode);
 echo $response;
