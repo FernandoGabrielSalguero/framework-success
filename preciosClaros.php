@@ -14,14 +14,21 @@ function getSucursales($lat, $lng) {
         return null;
     }
 
+    // Guardar respuesta cruda para ver qué devuelve realmente
+    file_put_contents("debug_response.json", $response);
+
     curl_close($ch);
     return json_decode($response, true);
 }
 
-// Coordenadas: Mendoza
+// Coordenadas de Mendoza
 $lat = -32.9252;
 $lng = -68.8443;
 
+// Obtener sucursales desde API
+$sucursales = getSucursales($lat, $lng);
+
+// --- HTML ---
 echo "<!DOCTYPE html>
 <html lang='es'>
 <head>
@@ -31,14 +38,20 @@ echo "<!DOCTYPE html>
         body { font-family: Arial, sans-serif; padding: 2rem; background: #f0f0f0; }
         h1, h2 { color: #333; }
         .sucursal { background: white; padding: 10px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        pre.debug { background: #eee; padding: 10px; overflow: auto; max-height: 300px; }
     </style>
 </head>
 <body>
 <h1>🏪 Sucursales cercanas</h1>";
 
-$sucursales = getSucursales($lat, $lng);
+// DEBUG PHP - Ver estructura del array
+echo "<h2>Depuración PHP:</h2>";
+echo "<pre class='debug'>";
+print_r($sucursales);
+echo "</pre>";
 
-if ($sucursales && !empty($sucursales['sucursales'])) {
+// Mostrar sucursales si existen
+if (isset($sucursales['sucursales']) && count($sucursales['sucursales']) > 0) {
     foreach ($sucursales['sucursales'] as $sucursal) {
         echo "<div class='sucursal'>
             <strong>{$sucursal['sucursalNombre']}</strong><br>
@@ -53,6 +66,13 @@ if ($sucursales && !empty($sucursales['sucursales'])) {
 } else {
     echo "<p><strong>No se encontraron sucursales disponibles.</strong></p>";
 }
+
+// DEBUG JS en consola
+echo "<script>
+    console.log('🔍 Debug desde PHP a consola:');
+    const data = " . json_encode($sucursales) . ";
+    console.log(data);
+</script>";
 
 echo "</body></html>";
 ?>
