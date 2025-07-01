@@ -48,9 +48,9 @@ function buscarProductos($sucursalId, $termino) {
 }
 
 // Coordenadas: microcentro de CABA
-$lat = -34.6037;
-$lng = -58.3816;
-$termino = 'leche';
+$lat = -32.9252;
+$lng = -68.8443;
+// $termino = 'leche';
 
 echo "<!DOCTYPE html>
 <html lang='es'>
