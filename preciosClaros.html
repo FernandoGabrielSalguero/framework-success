@@ -2,47 +2,90 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Sucursales desde JS</title>
+  <title>Comparar precio de Leche</title>
   <style>
-    body { font-family: Arial; padding: 2rem; background: #f0f0f0; }
-    .sucursal { background: white; padding: 1rem; margin: 1rem 0; border-left: 4px solid #007BFF; border-radius: 6px; }
+    body { font-family: Arial; background: #f4f4f4; padding: 2rem; }
+    .card {
+      background: white;
+      margin: 1rem 0;
+      padding: 1rem;
+      border-left: 4px solid #007BFF;
+      border-radius: 6px;
+    }
+    .barato {
+      border-left-color: green;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h1>🏪 Sucursales cercanas (JS)</h1>
-  <div id="resultado">Cargando...</div>
 
-  <script>
-    const lat = -32.9252;
-    const lng = -68.8443;
+<h1>🍼 Comparador: Leche La Serenísima Zerolact 1L</h1>
+<div id="result">Buscando precios...</div>
 
-    fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=10`)
-      .then(res => res.json())
-      .then(data => {
-        const contenedor = document.getElementById('resultado');
-        if (!data.sucursales || data.sucursales.length === 0) {
-          contenedor.innerHTML = "<p>No se encontraron sucursales.</p>";
-          return;
-        }
+<script>
+  const lat = -32.9252;
+  const lng = -68.8443;
+  const term = "zerolact 1l";
+  const resultDiv = document.getElementById('result');
 
-        contenedor.innerHTML = '';
-        data.sucursales.forEach(s => {
-          contenedor.innerHTML += `
-            <div class="sucursal">
-              <strong>${s.sucursalNombre}</strong><br>
-              Dirección: ${s.direccion}<br>
-              Localidad: ${s.localidad}<br>
-              Distancia: ${s.distanciaDescripcion}<br>
-              Tipo: ${s.sucursalTipo}<br>
-              Bandera: ${s.banderaDescripcion}
-            </div>
-          `;
+  fetch(`https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=${lat}&lng=${lng}&limit=5`)
+    .then(res => res.json())
+    .then(async data => {
+      if (!data.sucursales || data.sucursales.length === 0) {
+        resultDiv.innerHTML = "❌ No se encontraron sucursales.";
+        return;
+      }
+
+      let resultados = [];
+
+      for (const suc of data.sucursales) {
+        const res = await fetch('api_productos.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sucursalId: suc.sucursalId, term })
         });
-      })
-      .catch(err => {
-        document.getElementById('resultado').innerHTML = "❌ Error al obtener datos";
-        console.error(err);
+
+        const productos = await res.json();
+
+        if (Array.isArray(productos)) {
+          const item = productos.find(p =>
+            p.producto.descripcion.toLowerCase().includes("zerolact")
+          );
+
+          if (item) {
+            resultados.push({
+              nombre: suc.sucursalNombre,
+              direccion: suc.direccion,
+              precio: item.precio
+            });
+          }
+        }
+      }
+
+      if (resultados.length === 0) {
+        resultDiv.innerHTML = "❌ No se encontró la leche Zerolact en las sucursales.";
+        return;
+      }
+
+      resultados.sort((a, b) => a.precio - b.precio);
+
+      resultDiv.innerHTML = "";
+      resultados.forEach((r, i) => {
+        resultDiv.innerHTML += `
+          <div class="card ${i === 0 ? 'barato' : ''}">
+            🏬 <strong>${r.nombre}</strong><br>
+            📍 ${r.direccion}<br>
+            💲 Precio: $${r.precio.toFixed(2)}
+          </div>
+        `;
       });
-  </script>
+    })
+    .catch(err => {
+      console.error(err);
+      resultDiv.innerHTML = "❌ Error general al buscar precios.";
+    });
+</script>
+
 </body>
 </html>

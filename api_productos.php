@@ -1,21 +1,27 @@
 <?php
-// api_proxy_sucursales.php
+// api_productos.php
 
 header('Content-Type: application/json');
 
-$lat = isset($_GET['lat']) ? $_GET['lat'] : null;
-$lng = isset($_GET['lng']) ? $_GET['lng'] : null;
-$limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+$input = json_decode(file_get_contents('php://input'), true);
+$sucursalId = $input['sucursalId'] ?? null;
+$term = $input['term'] ?? null;
 
-if (!$lat || !$lng) {
+if (!$sucursalId || !$term) {
     http_response_code(400);
-    echo json_encode(["error" => "Faltan coordenadas lat/lng"]);
+    echo json_encode(['error' => 'Faltan datos']);
     exit;
 }
 
-$url = "https://d3e6htiiul5ek9.cloudfront.net/prod/sucursales?lat=$lat&lng=$lng&limit=$limit";
+$url = "https://d3e6htiiul5ek9.cloudfront.net/prod/products/list";
+$data = json_encode([
+    "sucursalId" => $sucursalId,
+    "term" => $term
+]);
 
 $headers = [
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($data),
     'Accept: application/json, text/plain, */*',
     'Accept-Language: es-AR,es;q=0.9',
     'Connection: keep-alive',
@@ -28,13 +34,13 @@ curl_setopt_array($ch, [
     CURLOPT_RETURNTRANSFER => true,
     CURLOPT_USERAGENT => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/122.0.0.0 Safari/537.36',
     CURLOPT_TIMEOUT => 10,
-    CURLOPT_FOLLOWLOCATION => true,
+    CURLOPT_POST => true,
+    CURLOPT_POSTFIELDS => $data,
     CURLOPT_HTTPHEADER => $headers,
     CURLOPT_SSL_VERIFYPEER => false
 ]);
 
 $response = curl_exec($ch);
-$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 if (curl_errno($ch)) {
     http_response_code(500);
@@ -43,6 +49,7 @@ if (curl_errno($ch)) {
     exit;
 }
 
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 curl_close($ch);
 http_response_code($httpCode);
 echo $response;
