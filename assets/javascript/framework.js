@@ -334,3 +334,110 @@ function toggleSubcategorias(btn) {
     const sub = btn.nextElementSibling;
     sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
 }
+
+// tutorial paso a paso
+
+// === TUTORIAL GUIADO POR PASOS ===
+
+const tourSteps = [
+    {
+        element: ".sidebar", // menú lateral
+        message: "Este es el menú lateral. Desde aquí navegás por todo el dashboard.",
+        position: "right"
+    },
+    {
+        element: "#btn-guardar", // botón guardar del formulario
+        message: "Este botón te permite guardar la publicación cuando los datos están completos.",
+        position: "top"
+    },
+];
+
+let currentTourIndex = 0;
+
+function startTour() {
+    currentTourIndex = 0;
+    createOverlay();
+    showTourStep(currentTourIndex);
+}
+
+function createOverlay() {
+    if (!document.getElementById("tour-overlay")) {
+        const overlay = document.createElement("div");
+        overlay.id = "tour-overlay";
+        document.body.appendChild(overlay);
+    }
+}
+
+function removeTour() {
+    const existing = document.querySelector(".tour-tooltip");
+    if (existing) existing.remove();
+    const overlay = document.getElementById("tour-overlay");
+    if (overlay) overlay.remove();
+}
+
+function showTourStep(index) {
+    removeTour();
+
+    const step = tourSteps[index];
+    const target = document.querySelector(step.element);
+    if (!target) return;
+
+    const tooltip = document.createElement("div");
+    tooltip.className = "tour-tooltip";
+    tooltip.innerHTML = `
+    <p>${step.message}</p>
+    <div class="tour-actions">
+      ${index > 0 ? `<button onclick="prevTourStep()">Anterior</button>` : ""}
+      <button onclick="${index < tourSteps.length - 1 ? "nextTourStep()" : "endTour()"}">
+        ${index < tourSteps.length - 1 ? "Siguiente" : "Finalizar"}
+      </button>
+    </div>
+  `;
+
+    document.body.appendChild(tooltip);
+
+    // Posicionar tooltip
+    const rect = target.getBoundingClientRect();
+    const tt = tooltip.getBoundingClientRect();
+    let top = 0, left = 0;
+
+    switch (step.position) {
+        case "top":
+            top = rect.top - tt.height - 10;
+            left = rect.left + rect.width / 2 - tt.width / 2;
+            break;
+        case "right":
+            top = rect.top + rect.height / 2 - tt.height / 2;
+            left = rect.right + 10;
+            break;
+        case "bottom":
+            top = rect.bottom + 10;
+            left = rect.left + rect.width / 2 - tt.width / 2;
+            break;
+        default:
+            top = rect.top - tt.height - 10;
+            left = rect.left + rect.width / 2 - tt.width / 2;
+    }
+
+    tooltip.style.top = `${Math.max(top, 20)}px`;
+    tooltip.style.left = `${Math.max(left, 20)}px`;
+}
+
+function nextTourStep() {
+    if (currentTourIndex < tourSteps.length - 1) {
+        currentTourIndex++;
+        showTourStep(currentTourIndex);
+    }
+}
+
+function prevTourStep() {
+    if (currentTourIndex > 0) {
+        currentTourIndex--;
+        showTourStep(currentTourIndex);
+    }
+}
+
+function endTour() {
+    removeTour();
+    showToast("success", "¡Tutorial finalizado!");
+}
