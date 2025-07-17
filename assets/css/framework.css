@@ -1312,3 +1312,9 @@ body {
 .tour-actions button:hover {
   background-color: #4c1c9e;
 }
+
+/* clase para ocultar objetos */
+
+.oculto {
+    display: none !important;
+}

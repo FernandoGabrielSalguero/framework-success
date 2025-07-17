@@ -335,8 +335,6 @@ function toggleSubcategorias(btn) {
     sub.style.display = sub.style.display === 'block' ? 'none' : 'block';
 }
 
-// tutorial paso a paso
-
 // === TUTORIAL GUIADO POR PASOS ===
 
 const tourSteps = [
