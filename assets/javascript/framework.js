@@ -174,7 +174,8 @@ function initInputIcons() {
 
                     case "input-icon-phone":
                         input.setAttribute("type", "tel");
-                        input.setAttribute("pattern", "[0-9\\+\\-\\s]{7,20}");
+                        input.setAttribute("pattern", "^[0-9]{10}$");
+                        input.setAttribute("maxlength", "10");
                         input.setAttribute("inputmode", "tel");
                         input.setAttribute("required", "true");
                         break;
