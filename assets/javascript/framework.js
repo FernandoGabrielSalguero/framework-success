@@ -186,7 +186,9 @@ function initInputIcons() {
 
                     case "input-icon-cuit":
                         input.setAttribute("type", "text");
-                        input.setAttribute("pattern", "^[0-9]{2}-[0-9]{8}-[0-9]{1}$");
+                        input.setAttribute("inputmode", "numeric");
+                        input.setAttribute("pattern", "^[0-9]{11}$");
+                        input.setAttribute("maxlength", "11");
                         input.setAttribute("required", "true");
                         break;
 
