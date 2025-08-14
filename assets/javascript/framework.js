@@ -442,3 +442,33 @@ function endTour() {
     removeTour();
     showToast("success", "¡Tutorial finalizado!");
 }
+
+
+// funciones de las metricas
+
+function toggleRoundMetric(btn) {
+  const card = btn.closest('.metric-round');
+  const panel = card.querySelector('.metric-extra-round');
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+
+  // Toggle aria
+  btn.setAttribute('aria-expanded', String(!expanded));
+
+  // Abrir/cerrar con altura animada
+  if (!expanded) {
+    panel.classList.add('open');
+    panel.style.maxHeight = panel.scrollHeight + 'px';
+  } else {
+    panel.style.maxHeight = panel.scrollHeight + 'px'; // set actual height first
+    // force reflow para que la transición ocurra hacia 0
+    void panel.offsetHeight;
+    panel.style.maxHeight = '0px';
+    // al terminar, removemos .open para resetear opacidad
+    panel.addEventListener('transitionend', function onEnd(e) {
+      if (e.propertyName === 'max-height') {
+        panel.classList.remove('open');
+        panel.removeEventListener('transitionend', onEnd);
+      }
+    });
+  }
+}
