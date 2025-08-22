@@ -479,40 +479,30 @@ document.addEventListener('DOMContentLoaded', () => {
     initGForm();
 });
 
-function initGForm() {
-    const form = document.getElementById('gform-demo');
-    if (!form) return;
+document.addEventListener('DOMContentLoaded', () => {
+  initGForm('#form-dron');     // <— TU form real
+});
 
-    // “Otros” -> mostrar/ocultar input
-    const otrosChk = document.getElementById('g_motivo_otros_chk');
-    const otrosInp = document.getElementById('g_motivo_otros');
-    if (otrosChk && otrosInp) {
-        otrosChk.addEventListener('change', () => {
-            if (otrosChk.checked) {
-                otrosInp.classList.remove('oculto');
-                otrosInp.focus();
-            } else {
-                otrosInp.value = '';
-                otrosInp.classList.add('oculto');
-            }
-        });
-    }
+function initGForm(formSelector = '#form-dron') {
+  const form = document.querySelector(formSelector) || document.querySelector('form.gform-grid');
+  if (!form) return;
 
-    // Borrar estado de error cuando el usuario interactúa
-    form.querySelectorAll('input, select, textarea').forEach(el => {
-        el.addEventListener('input', () => clearError(el));
-        el.addEventListener('change', () => clearError(el));
-    });
+  // “Otros” -> mostrar/ocultar input
+  const otrosChk = form.querySelector('#g_motivo_otros_chk');
+  const otrosInp = form.querySelector('#g_motivo_otros');
 
-    form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const ok = validateGForm(form);
-        if (!ok) {
-            showToast?.('error', 'Revisá los campos obligatorios');
-            return;
-        }
-        showToast?.('success', 'Formulario válido (demo)');
-    });
+  function toggleOtros() {
+    const show = otrosChk.checked;
+    otrosInp.classList.toggle('oculto', !show);
+    otrosInp.disabled = !show;
+    if (!show) otrosInp.value = '';
+    if (show) otrosInp.focus();
+  }
+
+  if (otrosChk && otrosInp) {
+    otrosChk.addEventListener('change', toggleOtros);
+    toggleOtros(); // estado inicial coherente
+  }
 }
 
 function clearError(input) {

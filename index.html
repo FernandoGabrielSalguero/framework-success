@@ -249,12 +249,20 @@
                                 <span>Curación para Mildiu</span></label>
                             <label class="gform-option"><input type="checkbox" name="g_motivo[]" value="oidio">
                                 <span>Curación para Oidio</span></label>
-                            <label class="gform-option gform-option-otros">
-                                <input type="checkbox" id="g_motivo_otros_chk" value="otros">
-                                <span>Otros:</span>
-                                <input type="text" id="g_motivo_otros" class="gform-input gform-input-inline oculto"
-                                    placeholder="Especificar">
-                            </label>
+<label class="gform-option gform-option-otros">
+  <input type="checkbox"
+         id="g_motivo_otros_chk"
+         name="g_motivo[]"
+         value="otros"
+         aria-controls="g_motivo_otros">
+  <span>Otros:</span>
+  <input type="text"
+         id="g_motivo_otros"
+         name="g_motivo_otros"
+         class="gform-input gform-input-inline oculto"
+         placeholder="Especificar"
+         disabled>
+</label>
                         </div>
                         <div class="gform-error">Seleccioná al menos una opción.</div>
                     </div>
