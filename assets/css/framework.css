@@ -1322,128 +1322,257 @@ body {
 /* Clases de las metricas */
 /* === Métricas redondas === */
 .metrics-round-grid {
-  --metric-size: 120px; /* ajustá tamaño del círculo */
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  justify-items: center;
+    --metric-size: 120px;
+    /* ajustá tamaño del círculo */
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    justify-items: center;
 }
 
 /* En pantallas grandes, fuerza ~8 por fila */
 @media (min-width: 1280px) {
-  .metrics-round-grid {
-    grid-template-columns: repeat(8, 1fr);
-  }
+    .metrics-round-grid {
+        grid-template-columns: repeat(8, 1fr);
+    }
 }
 
 .metric-round {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Círculo visual */
 .metric-circle {
-  width: var(--metric-size);
-  height: var(--metric-size);
-  border-radius: 50%;
-  background: linear-gradient(180deg, #faf5ff, #ffffff);
-  border: 2px solid #ede9fe;
-  box-shadow: var(--shadow);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: .5rem;
+    width: var(--metric-size);
+    height: var(--metric-size);
+    border-radius: 50%;
+    background: linear-gradient(180deg, #faf5ff, #ffffff);
+    border: 2px solid #ede9fe;
+    box-shadow: var(--shadow);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: .5rem;
 }
 
 /* Título arriba, cantidad grande al centro */
 .metric-name {
-  font-size: .8rem;
-  font-weight: 600;
-  color: #6b21a8; /* tono del primario */
-  margin-bottom: .2rem;
+    font-size: .8rem;
+    font-weight: 600;
+    color: #6b21a8;
+    /* tono del primario */
+    margin-bottom: .2rem;
 }
 
 .metric-count {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--text-color);
-  line-height: 1;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-color);
+    line-height: 1;
 }
 
 /* Botón central para desplegar */
 .metric-center-btn {
-  position: absolute;
-  bottom: -12px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  cursor: pointer;
-  background: var(--primary-color);
-  color: #fff;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 6px 16px rgba(91, 33, 182, .25);
-  transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    background: var(--primary-color);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 16px rgba(91, 33, 182, .25);
+    transition: transform .15s ease, box-shadow .15s ease, background .2s ease;
 }
 
 .metric-center-btn:hover {
-  transform: translateX(-50%) translateY(-1px);
-  box-shadow: 0 8px 20px rgba(91, 33, 182, .32);
+    transform: translateX(-50%) translateY(-1px);
+    box-shadow: 0 8px 20px rgba(91, 33, 182, .32);
 }
 
 .metric-center-btn[aria-expanded="true"] .material-icons {
-  transform: rotate(180deg);
-  transition: transform .2s ease;
+    transform: rotate(180deg);
+    transition: transform .2s ease;
 }
 
 /* Panel de detalles */
 .metric-extra-round {
-  width: 100%;
-  max-width: 260px;
-  background: #fff;
-  border: 1px solid #eee;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  margin-top: 18px;       /* separa del círculo (debajo del botón) */
-  padding: .75rem .9rem;
-  font-size: .9rem;
-  color: #555;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-  transition: max-height .25s ease, opacity .25s ease;
+    width: 100%;
+    max-width: 260px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    margin-top: 18px;
+    /* separa del círculo (debajo del botón) */
+    padding: .75rem .9rem;
+    font-size: .9rem;
+    color: #555;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height .25s ease, opacity .25s ease;
 }
 
 .metric-extra-round.open {
-  opacity: 1;
-  /* max-height se setea dinámicamente para animar hacia la altura de contenido */
+    opacity: 1;
+    /* max-height se setea dinámicamente para animar hacia la altura de contenido */
 }
 
 .metric-extra-round ul {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
 }
 
 .metric-extra-round li {
-  padding: .15rem 0;
-  border-bottom: 1px dashed #eee;
+    padding: .15rem 0;
+    border-bottom: 1px dashed #eee;
 }
 
 .metric-extra-round li:last-child {
-  border-bottom: 0;
+    border-bottom: 0;
 }
 
 /* Ajustes responsive finos */
 @media (max-width: 420px) {
-  .metrics-round-grid { --metric-size: 108px; }
-  .metric-extra-round { max-width: 100%; }
+    .metrics-round-grid {
+        --metric-size: 108px;
+    }
+
+    .metric-extra-round {
+        max-width: 100%;
+    }
 }
+
+
+/* ===========================
+   Google Forms-like (estable)
+   =========================== */
+
+/* GRID: mobile 1 col; desktop configurable */
+.gform-grid{
+  display:grid;
+  gap:1rem;
+  grid-template-columns:1fr;          /* móvil: 1 por fila */
+}
+.gform-grid > *{
+  min-width:0;                        /* evita empujes/overflow en CSS Grid */
+  box-sizing:border-box;
+}
+@media (min-width:1024px){
+  .gform-grid.cols-1{grid-template-columns:1fr;}
+  .gform-grid.cols-2{grid-template-columns:repeat(2,minmax(0,1fr));}
+  .gform-grid.cols-3{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .gform-grid.cols-4{grid-template-columns:repeat(4,minmax(0,1fr));}
+
+  .gform-question.span-2,.gform-actions.span-2{grid-column:span 2;}
+  .gform-question.span-3,.gform-actions.span-3{grid-column:span 3;}
+  .gform-question.span-4,.gform-actions.span-4{grid-column:span 4;}
+}
+
+/* Tarjeta de cada pregunta */
+.gform-question{
+  position:relative;
+  background:#fff;
+  border:1px solid #e9d7f7;
+  border-radius:12px;
+  padding:1rem 1.25rem;
+  overflow:hidden;                    /* NADA se escapa de la tarjeta */
+}
+
+/* Título de la pregunta (reemplaza <legend>) */
+.gform-legend,
+.gform-label{
+  display:block;
+  width:100%;
+  margin:0 0 .35rem 0;
+  font-weight:800;
+  letter-spacing:.02em;
+  color:#111827;
+  line-height:1.25;
+  white-space:normal;
+  overflow-wrap:anywhere;             /* quiebra títulos MUY largos */
+  word-break:break-word;
+}
+.gform-required{ color:#e53935; margin-left:.15rem; }
+
+/* Texto auxiliar */
+.gform-helper{
+  font-size:.9rem;
+  color:#6b7280;
+  margin-bottom:.35rem;
+  overflow-wrap:anywhere;
+}
+
+/* Inputs estilo subrayado */
+.gform-input{
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:2px solid #e5e7eb;
+  padding:.6rem .2rem .45rem .2rem;
+  font-size:1rem;
+  outline:none;
+  transition:border-color .2s ease;
+}
+.gform-input::placeholder{ color:#9ca3af; }
+.gform-input:focus{ border-bottom-color:var(--primary-color); }
+
+.gform-textarea{ resize:vertical; min-height:90px; line-height:1.4; }
+
+/* Select con flecha nativa */
+.gform-select{ position:relative; }
+.gform-select select{
+  appearance:none; -webkit-appearance:none; -moz-appearance:none;
+  width:100%;
+  background:transparent;
+  border:0;
+  border-bottom:2px solid #e5e7eb;
+  padding:.6rem 2rem .45rem .2rem;
+  font-size:1rem;
+  outline:none;
+  transition:border-color .2s ease;
+}
+.gform-select select:focus{ border-bottom-color:var(--primary-color); }
+.gform-arrow{
+  position:absolute; right:.25rem; bottom:.45rem;
+  pointer-events:none; color:#6b7280; font-size:1.25rem;
+}
+
+/* Radios / Checkboxes */
+.gform-options{ display:flex; flex-direction:column; gap:.55rem; margin-top:.35rem; }
+.gform-option{ display:flex; align-items:center; gap:.5rem; }
+.gform-option input[type="radio"],
+.gform-option input[type="checkbox"]{ width:18px; height:18px; accent-color:var(--primary-color); }
+
+/* “Otros” inline */
+.gform-input-inline{ display:inline-block; width:240px; margin-left:.5rem; vertical-align:middle; }
+@media (max-width:640px){
+  .gform-input-inline{ width:100%; margin:.5rem 0 0 0; display:block; }
+}
+
+/* Errores */
+.gform-question.is-error{ border-color:#ef9a9a; }
+.gform-question.is-error .gform-legend,
+.gform-question.is-error .gform-label{ color:#c62828; }
+.gform-error{ display:none; color:#c62828; font-size:.9rem; margin-top:.4rem; }
+.gform-question.is-error .gform-error{ display:block; }
+
+/* Acciones */
+.gform-actions{ display:flex; align-items:center; gap:.75rem; margin-top:.5rem; flex-wrap:wrap; }
+.gform-btn{ background:#e5e7eb; color:#111; border:none; border-radius:8px; padding:.6rem 1rem; font-weight:600; cursor:pointer; }
+.gform-primary{ background:var(--primary-color); color:#fff; }
+.gform-clear{ margin-left:auto; color:#c2185b; text-decoration:none; font-size:.95rem; }
+.gform-clear:hover{ text-decoration:underline; }

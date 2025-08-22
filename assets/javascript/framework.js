@@ -447,28 +447,110 @@ function endTour() {
 // funciones de las metricas
 
 function toggleRoundMetric(btn) {
-  const card = btn.closest('.metric-round');
-  const panel = card.querySelector('.metric-extra-round');
-  const expanded = btn.getAttribute('aria-expanded') === 'true';
+    const card = btn.closest('.metric-round');
+    const panel = card.querySelector('.metric-extra-round');
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
 
-  // Toggle aria
-  btn.setAttribute('aria-expanded', String(!expanded));
+    // Toggle aria
+    btn.setAttribute('aria-expanded', String(!expanded));
 
-  // Abrir/cerrar con altura animada
-  if (!expanded) {
-    panel.classList.add('open');
-    panel.style.maxHeight = panel.scrollHeight + 'px';
-  } else {
-    panel.style.maxHeight = panel.scrollHeight + 'px'; // set actual height first
-    // force reflow para que la transición ocurra hacia 0
-    void panel.offsetHeight;
-    panel.style.maxHeight = '0px';
-    // al terminar, removemos .open para resetear opacidad
-    panel.addEventListener('transitionend', function onEnd(e) {
-      if (e.propertyName === 'max-height') {
-        panel.classList.remove('open');
-        panel.removeEventListener('transitionend', onEnd);
-      }
-    });
-  }
+    // Abrir/cerrar con altura animada
+    if (!expanded) {
+        panel.classList.add('open');
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+    } else {
+        panel.style.maxHeight = panel.scrollHeight + 'px'; // set actual height first
+        // force reflow para que la transición ocurra hacia 0
+        void panel.offsetHeight;
+        panel.style.maxHeight = '0px';
+        // al terminar, removemos .open para resetear opacidad
+        panel.addEventListener('transitionend', function onEnd(e) {
+            if (e.propertyName === 'max-height') {
+                panel.classList.remove('open');
+                panel.removeEventListener('transitionend', onEnd);
+            }
+        });
+    }
 }
+
+
+/* ===== Google Forms-like ===== */
+document.addEventListener('DOMContentLoaded', () => {
+    initGForm();
+});
+
+function initGForm() {
+    const form = document.getElementById('gform-demo');
+    if (!form) return;
+
+    // “Otros” -> mostrar/ocultar input
+    const otrosChk = document.getElementById('g_motivo_otros_chk');
+    const otrosInp = document.getElementById('g_motivo_otros');
+    if (otrosChk && otrosInp) {
+        otrosChk.addEventListener('change', () => {
+            if (otrosChk.checked) {
+                otrosInp.classList.remove('oculto');
+                otrosInp.focus();
+            } else {
+                otrosInp.value = '';
+                otrosInp.classList.add('oculto');
+            }
+        });
+    }
+
+    // Borrar estado de error cuando el usuario interactúa
+    form.querySelectorAll('input, select, textarea').forEach(el => {
+        el.addEventListener('input', () => clearError(el));
+        el.addEventListener('change', () => clearError(el));
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const ok = validateGForm(form);
+        if (!ok) {
+            showToast?.('error', 'Revisá los campos obligatorios');
+            return;
+        }
+        showToast?.('success', 'Formulario válido (demo)');
+    });
+}
+
+function clearError(input) {
+    const q = input.closest('.gform-question');
+    if (q) q.classList.remove('is-error');
+}
+
+function validateGForm(form) {
+    let valid = true;
+
+    // Cada bloque con data-required=true
+    form.querySelectorAll('.gform-question[data-required="true"]').forEach(q => {
+        let blockValid = true;
+
+        // 1) Si hay radio dentro, exige uno tildado
+        const radios = q.querySelectorAll('input[type="radio"]');
+        if (radios.length) {
+            blockValid = Array.from(radios).some(r => r.checked);
+        }
+
+        // 2) Si hay checkboxes dentro (ej: quincenas/motivos), exige al menos uno
+        const checks = q.querySelectorAll('input[type="checkbox"]');
+        if (checks.length && !radios.length) {
+            blockValid = Array.from(checks).some(c => c.checked);
+        }
+
+        // 3) Inputs/select/textarea individuales
+        const single = q.querySelector('input.gform-input:not([type="radio"]):not([type="checkbox"]), select, textarea');
+        if (single && !single.value.trim()) {
+            blockValid = false;
+        }
+
+        if (!blockValid) {
+            q.classList.add('is-error');
+            valid = false;
+        }
+    });
+
+    return valid;
+}
+

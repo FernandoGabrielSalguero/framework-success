@@ -192,7 +192,110 @@
                     </form>
                 </div>
 
+                <!-- formulario de google  -->
 
+                <h2 style="margin-bottom: 1rem;">Formulario estilo Google (demo)</h2>
+
+                <form id="form-dron" class="gform-grid cols-4" novalidate>
+                    <!-- 1) Short answer -->
+                    <div class="gform-question" data-required="true">
+                        <label class="gform-label" for="g_razon">RAZON SOCIAL <span
+                                class="gform-required">*</span></label>
+                        <div class="gform-helper">Debe ser la razón social vinculada a la cooperativa.</div>
+                        <input class="gform-input" id="g_razon" name="g_razon" type="text" placeholder="Tu respuesta" />
+                        <div class="gform-error">Esta pregunta es obligatoria.</div>
+                    </div>
+
+                    <!-- 2) Select / dropdown -->
+                    <div class="gform-question" data-required="true">
+                        <label class="gform-label" for="g_coop">COOPERATIVA A LA QUE PERTENECE <span
+                                class="gform-required">*</span></label>
+                        <div class="gform-select">
+                            <select id="g_coop" name="g_coop">
+                                <option value="">Elegir</option>
+                                <option>Cooperativa La Dormida</option>
+                                <option>Cooperativa Las Trincheras</option>
+                                <option>Cooperativa Productores de Junín</option>
+                            </select>
+                            <span class="material-icons gform-arrow">expand_more</span>
+                        </div>
+                        <div class="gform-error">Esta pregunta es obligatoria.</div>
+                    </div>
+
+                    <!-- 3) Radio (SI/NO) con helper -->
+                    <div class="gform-question" role="group" aria-labelledby="q_corriente_label">
+                        <div id="q_corriente_label" class="gform-legend">
+                            ¿CUENTA CON DISPONIBILIDAD DE CORRIENTE ELÉCTRICA? <span class="gform-required">*</span>
+                        </div>
+                        <div class="gform-helper">
+                            Se requiere toma de 35A para recargar baterías durante la pulverización.
+                        </div>
+                        <div class="gform-options">
+                            <label class="gform-option"><input type="radio" name="g_corriente" value="si">
+                                <span>SI</span></label>
+                            <label class="gform-option"><input type="radio" name="g_corriente" value="no">
+                                <span>NO</span></label>
+                        </div>
+                        <div class="gform-error">Esta pregunta es obligatoria.</div>
+                    </div>
+
+                    <!-- 4) Checkbox (con “Otros” inline) -->
+                    <div class="gform-question" role="group" aria-labelledby="q_motivo_label">
+                        <div id="q_motivo_label" class="gform-legend">
+                            MOTIVO DEL SERVICIO <span class="gform-required">*</span>
+                        </div>
+                        <div class="gform-options">
+                            <label class="gform-option"><input type="checkbox" name="g_motivo[]" value="mildiu">
+                                <span>Curación para Mildiu</span></label>
+                            <label class="gform-option"><input type="checkbox" name="g_motivo[]" value="oidio">
+                                <span>Curación para Oidio</span></label>
+                            <label class="gform-option gform-option-otros">
+                                <input type="checkbox" id="g_motivo_otros_chk" value="otros">
+                                <span>Otros:</span>
+                                <input type="text" id="g_motivo_otros" class="gform-input gform-input-inline oculto"
+                                    placeholder="Especificar">
+                            </label>
+                        </div>
+                        <div class="gform-error">Seleccioná al menos una opción.</div>
+                    </div>
+
+                    <!-- 5) Checkbox list (quincenas) -->
+                    <div class="gform-question" role="group" aria-labelledby="q_momento_label">
+                        <div id="q_momento_label" class="gform-legend">
+                            MOMENTO EN QUE DESEA CONTRATAR EL SERVICIO <span class="gform-required">*</span>
+                        </div>
+                        <div class="gform-options">
+                            <label class="gform-option"><input type="checkbox" name="g_quince[]" value="oct1">
+                                <span>Primera quincena de Octubre</span></label>
+                            <label class="gform-option"><input type="checkbox" name="g_quince[]" value="oct2">
+                                <span>Segunda quincena de Octubre</span></label>
+                            <label class="gform-option"><input type="checkbox" name="g_quince[]" value="nov1">
+                                <span>Primera quincena de Noviembre</span></label>
+                        </div>
+                        <div class="gform-error">Seleccioná al menos una opción.</div>
+                    </div>
+
+                    <!-- 6) Long answer / párrafo -->
+                    <div class="gform-question span-2" data-required="true">
+                        <label class="gform-label" for="g_obs">OBSERVACIONES <span
+                                class="gform-required">*</span></label>
+                        <textarea class="gform-input gform-textarea" id="g_obs" name="g_obs" rows="3"
+                            placeholder="Tu respuesta"></textarea>
+                        <div class="gform-error">Esta pregunta es obligatoria.</div>
+                    </div>
+
+                    <!-- Acciones (podés dejarlas full width) -->
+                    <div class="gform-actions span-4">
+                        <button type="button" class="gform-btn">Atrás</button>
+                        <button type="submit" class="gform-btn gform-primary">Siguiente</button>
+                        <a href="#" class="gform-clear"
+                            onclick="document.getElementById('form-dron').reset();return false;">Borrar formulario</a>
+                    </div>
+                </form>
+
+
+                <br>
+                <br>
 
                 <!-- Tabla -->
                 <div class="card tabla-card">
@@ -247,160 +350,160 @@
                 </div>
 
                 <!-- TARJETA DE METRICAS -->
-<!-- Métricas redondas -->
-<div class="card">
-  <h2>Métricas</h2>
+                <!-- Métricas redondas -->
+                <div class="card">
+                    <h2>Métricas</h2>
 
-  <div class="metrics-round-grid">
-    <!-- 1 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Ventas</span>
-        <span class="metric-count">1,245</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-ventas"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-ventas">
-        <ul>
-          <li>Online: 950</li>
-          <li>Locales: 295</li>
-          <li>Promedio diario: 42</li>
-        </ul>
-      </div>
-    </div>
+                    <div class="metrics-round-grid">
+                        <!-- 1 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Ventas</span>
+                                <span class="metric-count">1,245</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-ventas"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-ventas">
+                                <ul>
+                                    <li>Online: 950</li>
+                                    <li>Locales: 295</li>
+                                    <li>Promedio diario: 42</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 2 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Usuarios</span>
-        <span class="metric-count">3,560</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-usuarios"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-usuarios">
-        <ul>
-          <li>Nuevos: 320</li>
-          <li>Activos: 3,240</li>
-          <li>Retención: 88%</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 2 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Usuarios</span>
+                                <span class="metric-count">3,560</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-usuarios"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-usuarios">
+                                <ul>
+                                    <li>Nuevos: 320</li>
+                                    <li>Activos: 3,240</li>
+                                    <li>Retención: 88%</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 3 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Ingresos</span>
-        <span class="metric-count">$45.8K</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-ingresos"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-ingresos">
-        <ul>
-          <li>Producto A: $20K</li>
-          <li>Producto B: $15.5K</li>
-          <li>Servicios: $10.3K</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 3 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Ingresos</span>
+                                <span class="metric-count">$45.8K</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-ingresos"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-ingresos">
+                                <ul>
+                                    <li>Producto A: $20K</li>
+                                    <li>Producto B: $15.5K</li>
+                                    <li>Servicios: $10.3K</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 4 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Descargas</span>
-        <span class="metric-count">12.3K</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-descargas"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-descargas">
-        <ul>
-          <li>App iOS: 7.1K</li>
-          <li>App Android: 5.2K</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 4 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Descargas</span>
+                                <span class="metric-count">12.3K</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-descargas"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-descargas">
+                                <ul>
+                                    <li>App iOS: 7.1K</li>
+                                    <li>App Android: 5.2K</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 5 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Tickets</span>
-        <span class="metric-count">284</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-tickets"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-tickets">
-        <ul>
-          <li>Abiertos: 67</li>
-          <li>En curso: 121</li>
-          <li>Resueltos: 96</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 5 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Tickets</span>
+                                <span class="metric-count">284</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-tickets"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-tickets">
+                                <ul>
+                                    <li>Abiertos: 67</li>
+                                    <li>En curso: 121</li>
+                                    <li>Resueltos: 96</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 6 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Clientes</span>
-        <span class="metric-count">842</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-clientes"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-clientes">
-        <ul>
-          <li>Empresas: 110</li>
-          <li>Particulares: 732</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 6 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Clientes</span>
+                                <span class="metric-count">842</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-clientes"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-clientes">
+                                <ul>
+                                    <li>Empresas: 110</li>
+                                    <li>Particulares: 732</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 7 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Subs.</span>
-        <span class="metric-count">1,120</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-subs"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-subs">
-        <ul>
-          <li>Mensual: 910</li>
-          <li>Anual: 210</li>
-        </ul>
-      </div>
-    </div>
+                        <!-- 7 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Subs.</span>
+                                <span class="metric-count">1,120</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-subs"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-subs">
+                                <ul>
+                                    <li>Mensual: 910</li>
+                                    <li>Anual: 210</li>
+                                </ul>
+                            </div>
+                        </div>
 
-    <!-- 8 -->
-    <div class="metric-round">
-      <div class="metric-circle">
-        <span class="metric-name">Devoluciones</span>
-        <span class="metric-count">32</span>
-        <button class="metric-center-btn" aria-expanded="false" aria-controls="m-devoluciones"
-                onclick="toggleRoundMetric(this)">
-          <span class="material-icons">expand_more</span>
-        </button>
-      </div>
-      <div class="metric-extra-round" id="m-devoluciones">
-        <ul>
-          <li>Por defecto: 12</li>
-          <li>Arrepentimiento: 20</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+                        <!-- 8 -->
+                        <div class="metric-round">
+                            <div class="metric-circle">
+                                <span class="metric-name">Devoluciones</span>
+                                <span class="metric-count">32</span>
+                                <button class="metric-center-btn" aria-expanded="false" aria-controls="m-devoluciones"
+                                    onclick="toggleRoundMetric(this)">
+                                    <span class="material-icons">expand_more</span>
+                                </button>
+                            </div>
+                            <div class="metric-extra-round" id="m-devoluciones">
+                                <ul>
+                                    <li>Por defecto: 12</li>
+                                    <li>Arrepentimiento: 20</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
 
