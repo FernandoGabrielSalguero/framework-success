@@ -385,6 +385,26 @@
                         <div class="gform-error">Seleccioná al menos una opción.</div>
                     </div>
 
+                    <!-- ¿Estás en la ubicación de la finca? -->
+                    <div class="gform-question span-2" role="group" aria-labelledby="q_ubicacion_label">
+                        <div id="q_ubicacion_label" class="gform-label">
+                            ¿Estás en la ubicación de la finca? <span class="gform-required">*</span>
+                        </div>
+
+                        <div class="gform-miniopts">
+                            <label><input type="radio" name="en-finca" value="no" checked> No</label>
+                            <label><input type="radio" name="en-finca" value="si"> Sí, capturar coordenadas</label>
+                        </div>
+
+                        <div class="gform-helper" id="ubicacion_status">No se capturarán coordenadas.</div>
+
+                        <!-- Campos que se envían por AJAX -->
+                        <input type="hidden" name="lat" id="ubicacion_lat">
+                        <input type="hidden" name="lng" id="ubicacion_lng">
+                        <input type="hidden" name="acc" id="ubicacion_acc">
+                        <input type="hidden" name="ubicacion_ts" id="ubicacion_ts">
+                    </div>
+
 
                     <!-- Acciones (podés dejarlas full width) -->
                     <div class="gform-actions span-4">

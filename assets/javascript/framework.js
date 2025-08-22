@@ -612,3 +612,59 @@ function validateGForm(form) {
         cb.dispatchEvent(new Event('change', { bubbles: true }));
     });
 })();
+
+
+// Geolocalización
+(function () {
+    const yesSel = 'input[name="en-finca"][value="si"]';
+    const noSel = 'input[name="en-finca"][value="no"]';
+
+    const statusEl = document.getElementById('ubicacion_status');
+    const latEl = document.getElementById('ubicacion_lat');
+    const lngEl = document.getElementById('ubicacion_lng');
+    const accEl = document.getElementById('ubicacion_acc');
+    const tsEl = document.getElementById('ubicacion_ts');
+
+    function resetCoords() {
+        latEl.value = lngEl.value = accEl.value = tsEl.value = '';
+    }
+
+    function captureCoords() {
+        if (!('geolocation' in navigator)) {
+            statusEl.textContent = 'Tu navegador no soporta geolocalización.';
+            return;
+        }
+        statusEl.textContent = 'Capturando ubicación…';
+
+        navigator.geolocation.getCurrentPosition(
+            (pos) => {
+                const { latitude, longitude, accuracy } = pos.coords;
+                latEl.value = latitude.toFixed(6);
+                lngEl.value = longitude.toFixed(6);
+                accEl.value = Math.round(accuracy);
+                tsEl.value = new Date(pos.timestamp).toISOString();
+
+                statusEl.innerHTML =
+                    `Coordenadas guardadas: ${latitude.toFixed(6)}, ${longitude.toFixed(6)} · ±${Math.round(accuracy)} m. ` +
+                    `<a href="https://maps.google.com/?q=${latitude},${longitude}" target="_blank" rel="noopener">Ver en Maps</a>`;
+            },
+            (err) => {
+                resetCoords();
+                let msg = 'No se pudo capturar la ubicación.';
+                if (err.code === 1) msg = 'Permiso de ubicación denegado.';
+                if (err.code === 2) msg = 'No se pudo determinar la ubicación (señal débil).';
+                if (err.code === 3) msg = 'Tiempo de espera agotado al obtener la ubicación.';
+                statusEl.textContent = msg + ' Podés intentar nuevamente.';
+            },
+            { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+        );
+    }
+
+    const yes = document.querySelector(yesSel);
+    const no = document.querySelector(noSel);
+
+    if (yes && no) {
+        yes.addEventListener('change', (e) => { if (e.target.checked) captureCoords(); });
+        no.addEventListener('change', (e) => { if (e.target.checked) { resetCoords(); statusEl.textContent = 'No se capturarán coordenadas.'; } });
+    }
+})();
