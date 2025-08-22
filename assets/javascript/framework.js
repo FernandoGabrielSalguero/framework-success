@@ -554,3 +554,61 @@ function validateGForm(form) {
     return valid;
 }
 
+(function () {
+    function toggle(el, show) {
+        el.hidden = !show;
+        // deshabilito/rehabilito inputs dentro para no mandar basura al submit
+        el.querySelectorAll('input, select, textarea').forEach(i => i.disabled = !show);
+    }
+
+    // Mostrar/ocultar el "complemento" cuando tildan/destildan la quincena
+    document.addEventListener('change', function (e) {
+        // a) checkbox principal
+        if (e.target.matches('.gform-option input[type="checkbox"][data-complement]')) {
+            const comp = document.querySelector(e.target.dataset.complement);
+            if (!comp) return;
+
+            if (e.target.checked) {
+                toggle(comp, true);
+                // Por defecto SVE seleccionado; oculto marca
+                const brandWrap = comp.querySelector('.gform-brand');
+                const yo = comp.querySelector('input[type="radio"][value="yo"]');
+                const sve = comp.querySelector('input[type="radio"][value="sve"]');
+                if (sve) sve.checked = true;
+                if (brandWrap) {
+                    toggle(brandWrap, false);
+                    const brandInput = brandWrap.querySelector('input');
+                    if (brandInput) brandInput.value = '';
+                }
+            } else {
+                // Al destildar, cierro todo y limpio
+                toggle(comp, false);
+                const brandWrap = comp.querySelector('.gform-brand');
+                if (brandWrap) {
+                    toggle(brandWrap, false);
+                    const brandInput = brandWrap.querySelector('input');
+                    if (brandInput) brandInput.value = '';
+                }
+                // reseteo radios a SVE
+                const sve = comp.querySelector('input[type="radio"][value="sve"]');
+                if (sve) sve.checked = true;
+            }
+        }
+
+        // b) radios SVE / YO dentro del complemento
+        if (e.target.matches('.gform-complement input[type="radio"]')) {
+            const comp = e.target.closest('.gform-complement');
+            const brandWrap = comp.querySelector('.gform-brand');
+            toggle(brandWrap, e.target.value === 'yo');
+            if (e.target.value !== 'yo') {
+                const brandInput = brandWrap?.querySelector('input');
+                if (brandInput) brandInput.value = '';
+            }
+        }
+    });
+
+    // Inicializo estados por si el form viene con valores
+    document.querySelectorAll('.gform-option input[type="checkbox"][data-complement]').forEach(cb => {
+        cb.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+})();
